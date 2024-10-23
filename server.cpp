@@ -1,6 +1,6 @@
 #include <iostream>
 #include <cstring>
-#include <cstdlib>
+#include <stdlib.h>
 #include <unistd.h> // read(), write(), close()
 #include <sys/socket.h>
 #include <netinet/in.h>
@@ -102,7 +102,7 @@ int setupServerSocket(int port) {
     server_addr.sin_addr.s_addr = INADDR_ANY;
     server_addr.sin_port = htons(port);
 
-    if (bind(server_socket, (struct sockaddr*)&server_addr, sizeof(server_addr)) < 0) {
+    if (::bind(server_socket, (struct sockaddr*)&server_addr, sizeof(server_addr)) < 0) {
         perror("Bind failed");
         close(server_socket);
         return -1;
@@ -320,6 +320,13 @@ void processClientCommand(int clientSocket, vector<pollfd>& fds) {
 
 }
 
+// Function to send HELO command to another server
+void sendHELOToServer(int server_socket) {
+    string helo_command = "HELO," + GROUP_ID;
+    sendMessageToSocket(server_socket, helo_command);
+    logMessage("INFO", "Sent HELO command to server.");
+}
+
 // Function to connect to another server
 int connectToServer(const string& server_ip, int server_port) {
     int server_socket = socket(AF_INET, SOCK_STREAM, 0);
@@ -350,12 +357,7 @@ int connectToServer(const string& server_ip, int server_port) {
     return server_socket;
 }
 
-// Function to send HELO command to another server
-void sendHELOToServer(int server_socket) {
-    string helo_command = "HELO," + GROUP_ID;
-    sendMessageToSocket(server_socket, helo_command);
-    logMessage("Sent HELO command to server.");
-}
+
 
 // HELO function to send HELO command to another server
 string receiveHELOResponse(int sockfd) {
@@ -371,23 +373,23 @@ string receiveHELOResponse(int sockfd) {
     timeout.tv_sec = 10;  // 10 seconds timeout
     timeout.tv_usec = 0;
 
-    logMessage("DEBUG: Waiting for HELO or SERVERS response on socket " + to_string(sockfd));
+    logMessage("DEBUG", "Waiting for HELO or SERVERS response on socket " + to_string(sockfd));
 
     int activity = select(sockfd + 1, &readfds, NULL, NULL, &timeout);
     if (activity > 0 && FD_ISSET(sockfd, &readfds)) {
-        logMessage("DEBUG: Receiving response on socket " + to_string(sockfd));
+        logMessage("DEBUG", "Receiving response on socket " + to_string(sockfd));
         int bytesReceived = recv(sockfd, buffer, MAX_MSG_LEN, 0);
         if (bytesReceived > 0) {
             string response(buffer, bytesReceived);
-            logMessage("INFO: Received framed response: " + response + " on socket " + to_string(sockfd));
+            logMessage("INFO", "Received framed response: " + response + " on socket " + to_string(sockfd));
 
             // Unframe the message (strip SOH and EOT)
             string unframedResponse = unframeMessage(response);
-            logMessage("DEBUG: Unframed response: " + unframedResponse);
+            //logMessage("DEBUG, Unframed response: " + unframedResponse);
 
             // Check if the response starts with "SERVERS,"
             if (unframedResponse.rfind("SERVERS", 0) == 0) {
-                logMessage("DEBUG: Valid SERVERS prefix found in response: " + unframedResponse);
+                //logMessage("DEBUG: Valid SERVERS prefix found in response: " + unframedResponse);
 
                 // Remove "SERVERS," from the response
                 string serversList = unframedResponse.substr(8);
@@ -401,7 +403,7 @@ string receiveHELOResponse(int sockfd) {
                         string groupID = fields[0];
                         string ipAddress = fields[1];
                         int serverPort = stoi(fields[2]);
-                        logMessage("INFO: Adding server from SERVERS response: " + groupID + " " + ipAddress + ":" + to_string(serverPort));
+                        logMessage("INFO", "Adding server from SERVERS response: " + groupID + " " + ipAddress + ":" + to_string(serverPort));
 
                         // Try to connect to the server
                         int serverSockfd = connectToServer(ipAddress, serverPort);
@@ -414,7 +416,7 @@ string receiveHELOResponse(int sockfd) {
                             newPollFd.events = POLLIN;
                             fds.push_back(newPollFd);  // Add to poll fds
 
-                            logMessage("INFO: Connected to server " + groupID + " at " + ipAddress + ":" + to_string(serverPort));
+                            logMessage("INFO", "Connected to server " + groupID + " at " + ipAddress + ":" + to_string(serverPort));
                         } else {
                             logMessage("ERROR", "Failed to connect to server: " + groupID);
                         }
@@ -428,14 +430,14 @@ string receiveHELOResponse(int sockfd) {
                 return "";
             }
         } else {
-            logMessage("ERROR: No data received in response, bytes received: " + to_string(bytesReceived));
+            logMessage("ERROR", "No data received in response, bytes received: " + to_string(bytesReceived));
             return "";
         }
     } else if (activity == 0) {
-        logMessage("WARNING: No response from server after HELO or SERVERS, timeout reached on socket " + to_string(sockfd));
+        logMessage("WARNING", "No response from server after HELO or SERVERS, timeout reached on socket " + to_string(sockfd));
         return "";  // Timeout reached
     } else {
-        logMessage("ERROR: Error in select() during response waiting.");
+        logMessage("ERROR", "Error in select() during response waiting.");
         return "";
     }
 }
@@ -445,7 +447,7 @@ string receiveHELOResponse(int sockfd) {
 string receiveResponseFromServer(int server_socket) {
     string response = receiveMessageFromSocket(server_socket);
     if (!response.empty()) {
-        logMessage("Received response from server: " + response);
+        //logMessage("Received response from server: " + response);
         cout << "Received response from server: " << response << endl;
     } else {
         cerr << "No response or connection closed by the server." << endl;
@@ -476,7 +478,7 @@ void acceptConnections(int server_socket, vector<pollfd>& fds) {
     fds.push_back(new_client_fd);
 
     // Log the new connection
-    logMessage("New connection accepted from " + string(client_ip) + ":" + to_string(ntohs(client_addr.sin_port)));
+    logMessage("INFO", "New connection accepted from " + string(client_ip) + ":" + to_string(ntohs(client_addr.sin_port)));
 }
 
 void signalHandler(int signal) {
@@ -508,6 +510,23 @@ int main(int argc, char* argv[]) {
     server_fd.events = POLLIN;
     fds.push_back(server_fd);
 
+    // Instructors IP address and port number
+    string instructorsIP = "130.208.246.249";
+    int instructorsPort = 5001;
+
+        // Step 1: Connect to the instruction server
+    int server_socket = connectToServer(instructorsIP, instructorsPort);
+    if (server_socket < 0) {
+        cerr << "Failed to connect to instruction server. Exiting." << endl;
+        exit(EXIT_FAILURE);
+    }
+    receiveResponseFromServer(server_socket);
+    // Get message from the server and print it
+    string response = receiveResponseFromServer(server_socket);
+    cout << "Received message from server: " << response << endl;
+    // Hérna á að koma skilaboð frá instructors server
+    
+
     cout << "Server is running, waiting for connections..." << endl;
 
     while (true) {
@@ -529,4 +548,4 @@ int main(int argc, char* argv[]) {
     }
 
     return 0;
-}
+} 
