@@ -1,56 +1,3 @@
-// ===================== SERVER =====================
-
-/*
- * TODO: Start TCP server on specified port
- * Steps:
- * 1. Create a TCP socket.
- * 2. Bind the socket to the provided port.
- * 3. Listen for incoming connections from clients or other servers.
- */
-
- /*
- * TODO: Handle client commands (GETMSG, SENDMSG, LISTSERVERS)
- * Steps:
- * 1. Receive commands from the connected client.
- * 2. Process the commands:
- *    - GETMSG: Fetch a message for the client's group and send it.
- *    - SENDMSG: Store or forward the message to another server.
- *    - LISTSERVERS: Provide the list of currently connected servers.
- */
-
- /*
- * TODO: Handle inter-server communication
- * Steps:
- * 1. Accept connections from other servers.
- * 2. Respond to commands like HELO, SERVERS, KEEPALIVE, etc.
- * 3. Forward messages to the appropriate servers when necessary.
- */
-
- /*
- * TODO: Implement message storage and forwarding
- * Steps:
- * 1. Store messages that cannot be immediately delivered.
- * 2. Forward stored messages when the appropriate server is reachable.
- */
-
- /*
- * TODO: Log all server activities
- * Steps:
- * 1. Maintain a log of all incoming and outgoing messages and commands.
- * 2. Include timestamps for each log entry.
- */
-
-
-// ===================== SHARED FUNCTIONALITIES =====================
-
-/*
- * TODO: Define message format and parsing logic
- * Steps:
- * 1. Use SOH (0x01) for start of message and EOT (0x04) for end.
- * 2. Implement bytestuffing for escape sequences within messages.
- * 3. Create helper functions to encode and decode messages.
- */
-
 #include <iostream>
 #include <cstring>
 #include <cstdlib>
@@ -63,6 +10,10 @@
 #include <poll.h>
 #include <fstream>
 #include <netdb.h> // For getaddrinfo
+#include <thread> // For thread operations
+#include <chrono> // For sleep in thread
+#include <map> // For message storage
+#include <mutex> // For thread safety
 
 using namespace std;
 
@@ -72,6 +23,7 @@ using namespace std;
 #define SOH 0x01 // ASCII value of SOH (Start of Header)
 #define EOT 0x04 // ASCII value of EOT (End of Transmission)
 #define MAX_MSG_LEN 5000 // maximum message length
+#define KEEPALIVE_INTERVAL 30 // Send KEEPALIVE every 30 seconds
 
 // Group ID
 string GROUP_ID = "A5_18"; 
@@ -82,11 +34,16 @@ struct ServerInfo {
     string name;
     string ip;
     int port;
+    bool active;
+    int sockfd;
+    time_t lastKeepAlive;
 };
 
 // Store the connected servers
 vector<ServerInfo> connectedServers;
 vector<pollfd> fds;  // Declare fds globally
+map<string, vector<string>> messageQueues;  // Store messages for each group
+mutex serverMutex;  // Mutex for thread safety
 
 // Function to get the current timestamp
 string getTimestamp() {
@@ -96,15 +53,39 @@ string getTimestamp() {
     return string(buffer);
 }
 
-// Utility function to log messages to a file with a timestamp
-void logMessage(const string &message) {
+// Function to log messages to a file
+void logMessage(const string& level, const string& message) {
     ofstream logFile("server.log", ios::app); // Open log file in append mode
     if (logFile.is_open()) {
-        logFile << "[" << getTimestamp() << "] " << message << endl; // Add timestamp to the log
+        logFile << "[" << getTimestamp() << "] [" << level << "] " << message << endl; // Add timestamp and log level to the log
         logFile.close(); // Close the log file
     } else {
         cerr << "Unable to open log file." << endl; // Handle file open error
     }
+}
+
+
+// Function to retrieve the public IP using an external service
+string getPublicIP() {
+    string command = "curl -s ifconfig.me";  // Use an external service to get public IP
+    array<char, 128> buffer;
+    string result;
+
+    FILE* pipe = popen(command.c_str(), "r");
+    if (!pipe) throw runtime_error("popen() failed!");
+
+    while (fgets(buffer.data(), buffer.size(), pipe) != nullptr) {
+        result += buffer.data();
+    }
+    pclose(pipe);
+    return result;
+}
+
+// Ping function to check if the other server is reachable
+bool pingServer(const string& ip) {
+    string pingCmd = "ping -c 1 " + ip;
+    int result = system(pingCmd.c_str());
+    return result == 0; // Return true if ping is successful
 }
 
 // Function to create and set up the server socket
@@ -150,6 +131,19 @@ string unframeMessage(const string& message) {
     return ""; // Invalid message
 }
 
+// Function to split a string by a delimiter
+vector<string> splitString(const string& str, char delimiter) {
+    vector<string> tokens;
+    size_t start = 0, end = 0;
+    while ((end = str.find(delimiter, start)) != string::npos) {
+        tokens.push_back(str.substr(start, end - start));
+        start = end + 1;
+    }
+    tokens.push_back(str.substr(start)); // Add the last token
+    return tokens;
+}
+
+
 // Function to send a framed message to a client/server
 void sendMessageToSocket(int socket, const string& message) {
     string framedMessage = frameMessage(message);
@@ -176,23 +170,106 @@ string receiveMessageFromSocket(int socket) {
     return unframeMessage(message); // Return the unframed message
 }
 
-// Function to accept new connections and add them to the pollfd vector
-void acceptConnections(int serverSocket, vector<pollfd>& fds) {
-    int client_socket = accept(serverSocket, nullptr, nullptr);
-    if (client_socket < 0) {
-        perror("Accept failed");
-        return;
-    }
+// Function to parse KEEPALIVE messages and update the server's lastKeepAlive time
+int parseKeepAliveMessage(const string& command, ServerInfo& server) {
+    // Example command format: "KEEPALIVE,10" where 10 is the message count
+    size_t delimiterPos = command.find(',');
+    if (delimiterPos != string::npos) {
+        // Extract the message count part
+        string messageCountStr = command.substr(delimiterPos + 1);
+        
+        try {
+            // Convert string to int and return the message count
+            int messageCount = stoi(messageCountStr);
+            
+            // Update the lastKeepAlive timestamp for this server
+            server.lastKeepAlive = time(0);
 
-    if (fds.size() < MAX_SERVERS + 1) {
-        pollfd client_fd;
-        client_fd.fd = client_socket;
-        client_fd.events = POLLIN;
-        fds.push_back(client_fd);
-        cout << "New connection accepted." << endl;
-    } else {
-        cerr << "Maximum clients reached, connection refused." << endl;
-        close(client_socket);
+            return messageCount;
+        } catch (const invalid_argument&) {
+            cerr << "Invalid message count in KEEPALIVE command." << endl;
+            return 0; // Default or error value
+        } catch (const out_of_range&) {
+            cerr << "Message count out of range in KEEPALIVE command." << endl;
+            return 0; // Default or error value
+        }
+    }
+    return 0; // If no message count found
+}
+
+
+// Function to send KEEPALIVE messages periodically and remove inactive servers
+void sendKeepAlive() {
+    while (true) {
+        this_thread::sleep_for(chrono::seconds(KEEPALIVE_INTERVAL));
+        logMessage("INFO",  "Sending KEEPALIVE to all connected servers.");
+
+        lock_guard<mutex> lock(serverMutex);  // Ensure thread-safe access to connected servers
+
+        time_t currentTime = time(0);  // Get the current time
+
+        for (auto it = connectedServers.begin(); it != connectedServers.end(); ) {
+            ServerInfo& server = *it;  // Access the server info directly
+
+            // Check if the server hasn't sent a KEEPALIVE for more than 120 seconds
+            double timeSinceLastKeepAlive = difftime(currentTime, server.lastKeepAlive);
+            if (timeSinceLastKeepAlive > 120) {
+                logMessage("WARNING", "Server " + server.groupID + " has been inactive for too long. Closing connection.");
+                close(server.sockfd);  // Close the socket
+
+                // Remove the server's pollfd entry from the fds vector
+                auto fd_it = find_if(fds.begin(), fds.end(), [&](pollfd const& pfd) {
+                    return pfd.fd == server.sockfd;
+                });
+                if (fd_it != fds.end()) {
+                    fds.erase(fd_it);
+                }
+
+                it = connectedServers.erase(it);  // Remove the server and update iterator
+                continue;  // Move to the next server
+            }
+
+            // Only send a KEEPALIVE message if 60 seconds have passed since the last one
+            if (difftime(currentTime, server.lastKeepAlive) >= 60) {
+                // Count the number of messages waiting for this server
+                int numMessages = 0;
+                if (messageQueues.find(server.groupID) != messageQueues.end()) {
+                    numMessages = messageQueues[server.groupID].size();
+                }
+
+                // Create the KEEPALIVE message
+                string keepAliveMsg = frameMessage("KEEPALIVE," + to_string(numMessages));
+
+                // Try to send the KEEPALIVE message
+                ssize_t result = send(server.sockfd, keepAliveMsg.c_str(), keepAliveMsg.length(), 0);
+                if (result < 0) {
+                    // Handle connection errors
+                    if (errno == EPIPE || errno == EBADF || errno == ECONNRESET) {
+                        logMessage("ERROR", "Failed to send KEEPALIVE to " + server.ip + ":" + to_string(server.port) + ". Error: " + strerror(errno));
+                        close(server.sockfd);  // Close the socket
+
+                        // Remove the server's pollfd entry from the fds vector
+                        auto fd_it = find_if(fds.begin(), fds.end(), [&](pollfd const& pfd) {
+                            return pfd.fd == server.sockfd;
+                        });
+                        if (fd_it != fds.end()) {
+                            fds.erase(fd_it);
+                        }
+
+                        it = connectedServers.erase(it);  // Remove the server and update iterator
+                        continue;  // Skip to the next server
+                    } else {
+                        logMessage("ERROR", "Unexpected error sending KEEPALIVE to " + server.ip + ":" + to_string(server.port) + ". Error: " + strerror(errno));
+                    }
+                } else {
+                    // Update the lastKeepAlive time on successful send
+                    server.lastKeepAlive = currentTime;
+                    logMessage("INFO", "Sent KEEPALIVE to server " + server.groupID + " with " + to_string(numMessages) + " messages.");
+                }
+            }
+
+            ++it;  // Move to the next server
+        }
     }
 }
 
@@ -214,36 +291,33 @@ void processClientCommand(int clientSocket, vector<pollfd>& fds) {
     }
 
     // Log the received command
-    logMessage("Received command: " + command);
+    logMessage("INFO", "Received command: " + command);
 
     if (command == "LISTSERVERS") {
         string response = "Connected Servers: " + to_string(fds.size() - 1);
         sendMessageToSocket(clientSocket, response);
-        logMessage("Sent LISTSERVERS response.");
+        logMessage("INFO", "Sent LISTSERVERS response.");
 
     } else if (command == "HELO") {
         string response = "HELO from server: " + GROUP_ID;
         sendMessageToSocket(clientSocket, response);
-        logMessage("Sent HELO response.");
+        logMessage("INFO", "Sent HELO response.");
 
-    } else if (command == "KEEPALIVE") {
-        sendMessageToSocket(clientSocket, "KEEPALIVE ACK");
-        logMessage("Sent KEEPALIVE ACK.");
-    
     } else if (command.find("SENDMSG") != string::npos) {
-        logMessage("Received SENDMSG: " + command);
+        logMessage("INFO", "Received SENDMSG: " + command);
         sendMessageToSocket(clientSocket, "Message received!");
-    
+
     } else if (command == "GETMSG") {
         string response = "No messages available.";
         sendMessageToSocket(clientSocket, response);
-        logMessage("Sent GETMSG response.");
-    
+        logMessage("INFO", "Sent GETMSG response.");
+
     } else {
         string response = "ERROR: Unknown command received.";
         sendMessageToSocket(clientSocket, response);
-        logMessage("Sent ERROR response.");
+        logMessage("ERROR", "Sent ERROR response.");
     }
+
 }
 
 // Function to connect to another server
@@ -272,6 +346,7 @@ int connectToServer(const string& server_ip, int server_port) {
     }
 
     cout << "Connected to server at " << server_ip << ":" << server_port << endl;
+    sendHELOToServer(server_socket);
     return server_socket;
 }
 
@@ -281,6 +356,90 @@ void sendHELOToServer(int server_socket) {
     sendMessageToSocket(server_socket, helo_command);
     logMessage("Sent HELO command to server.");
 }
+
+// HELO function to send HELO command to another server
+string receiveHELOResponse(int sockfd) {
+    char buffer[MAX_MSG_LEN];
+    memset(buffer, 0, MAX_MSG_LEN);
+
+    fd_set readfds;
+    struct timeval timeout;
+
+    FD_ZERO(&readfds);
+    FD_SET(sockfd, &readfds);
+
+    timeout.tv_sec = 10;  // 10 seconds timeout
+    timeout.tv_usec = 0;
+
+    logMessage("DEBUG: Waiting for HELO or SERVERS response on socket " + to_string(sockfd));
+
+    int activity = select(sockfd + 1, &readfds, NULL, NULL, &timeout);
+    if (activity > 0 && FD_ISSET(sockfd, &readfds)) {
+        logMessage("DEBUG: Receiving response on socket " + to_string(sockfd));
+        int bytesReceived = recv(sockfd, buffer, MAX_MSG_LEN, 0);
+        if (bytesReceived > 0) {
+            string response(buffer, bytesReceived);
+            logMessage("INFO: Received framed response: " + response + " on socket " + to_string(sockfd));
+
+            // Unframe the message (strip SOH and EOT)
+            string unframedResponse = unframeMessage(response);
+            logMessage("DEBUG: Unframed response: " + unframedResponse);
+
+            // Check if the response starts with "SERVERS,"
+            if (unframedResponse.rfind("SERVERS", 0) == 0) {
+                logMessage("DEBUG: Valid SERVERS prefix found in response: " + unframedResponse);
+
+                // Remove "SERVERS," from the response
+                string serversList = unframedResponse.substr(8);
+
+                // Split the servers by ';'
+                vector<string> servers = splitString(serversList, ';');
+                for (const auto& serverInfo : servers) {
+                    // Split the serverInfo by ','
+                    vector<string> fields = splitString(serverInfo, ',');
+                    if (fields.size() == 3) {
+                        string groupID = fields[0];
+                        string ipAddress = fields[1];
+                        int serverPort = stoi(fields[2]);
+                        logMessage("INFO: Adding server from SERVERS response: " + groupID + " " + ipAddress + ":" + to_string(serverPort));
+
+                        // Try to connect to the server
+                        int serverSockfd = connectToServer(ipAddress, serverPort);
+                        if (serverSockfd >= 0) {
+                            ServerInfo newServer = {groupID, "Server_" + groupID, ipAddress, serverPort};
+                            connectedServers.push_back(newServer);
+
+                            pollfd newPollFd;
+                            newPollFd.fd = serverSockfd;
+                            newPollFd.events = POLLIN;
+                            fds.push_back(newPollFd);  // Add to poll fds
+
+                            logMessage("INFO: Connected to server " + groupID + " at " + ipAddress + ":" + to_string(serverPort));
+                        } else {
+                            logMessage("ERROR", "Failed to connect to server: " + groupID);
+                        }
+                    } else {
+                        logMessage("ERROR", "Invalid server info format in SERVERS response: " + serverInfo);
+                    }
+                }
+                return "SERVERS command processed.";
+            } else {
+                logMessage("ERROR", "Response doesn't start with 'SERVERS,' : " + unframedResponse);
+                return "";
+            }
+        } else {
+            logMessage("ERROR: No data received in response, bytes received: " + to_string(bytesReceived));
+            return "";
+        }
+    } else if (activity == 0) {
+        logMessage("WARNING: No response from server after HELO or SERVERS, timeout reached on socket " + to_string(sockfd));
+        return "";  // Timeout reached
+    } else {
+        logMessage("ERROR: Error in select() during response waiting.");
+        return "";
+    }
+}
+
 
 // Function to receive response from another server
 string receiveResponseFromServer(int server_socket) {
@@ -292,6 +451,32 @@ string receiveResponseFromServer(int server_socket) {
         cerr << "No response or connection closed by the server." << endl;
     }
     return response;
+}
+// Function to accept new connections and add them to the poll fds
+void acceptConnections(int server_socket, vector<pollfd>& fds) {
+    struct sockaddr_in client_addr;
+    socklen_t client_len = sizeof(client_addr);
+
+    // Accept the incoming connection
+    int client_socket = accept(server_socket, (struct sockaddr*)&client_addr, &client_len);
+    if (client_socket < 0) {
+        perror("Accept failed");
+        return;
+    }
+
+    // Print out the IP address of the client
+    char client_ip[INET_ADDRSTRLEN];
+    inet_ntop(AF_INET, &client_addr.sin_addr, client_ip, sizeof(client_ip));
+    cout << "Accepted new connection from " << client_ip << ":" << ntohs(client_addr.sin_port) << endl;
+
+    // Add the new client to the poll fds
+    pollfd new_client_fd;
+    new_client_fd.fd = client_socket;
+    new_client_fd.events = POLLIN;  // We are interested in reading from this client
+    fds.push_back(new_client_fd);
+
+    // Log the new connection
+    logMessage("New connection accepted from " + string(client_ip) + ":" + to_string(ntohs(client_addr.sin_port)));
 }
 
 void signalHandler(int signal) {
