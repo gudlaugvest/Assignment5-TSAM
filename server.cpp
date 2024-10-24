@@ -23,7 +23,7 @@ using namespace std;
 #define SOH 0x01 // ASCII value of SOH (Start of Header)
 #define EOT 0x04 // ASCII value of EOT (End of Transmission)
 #define MAX_MSG_LEN 5000 // maximum message length
-#define KEEPALIVE_INTERVAL 30 // Send KEEPALIVE every 30 seconds
+#define KEEPALIVE_INTERVAL 60 // Send KEEPALIVE every 30 seconds
 
 // Group ID
 string GROUP_ID = "A5_18"; 
@@ -225,7 +225,6 @@ string receiveMessageFromSocket(int socket, int maxRetries = 3, int retryDelayMs
 
 // Function to parse KEEPALIVE messages and update the server's lastKeepAlive time
 int parseKeepAliveMessage(const string& command, ServerInfo& server) {
-    // Example command format: "KEEPALIVE,10" where 10 is the message count
     size_t delimiterPos = command.find(',');
     if (delimiterPos != string::npos) {
         // Extract the message count part
@@ -237,6 +236,8 @@ int parseKeepAliveMessage(const string& command, ServerInfo& server) {
             
             // Update the lastKeepAlive timestamp for this server
             server.lastKeepAlive = time(0);
+            
+            logMessage("DEBUG", "Parsed KEEPALIVE from " + server.groupID + " with message count " + to_string(messageCount));
 
             return messageCount;
         } catch (const invalid_argument&) {
@@ -250,7 +251,6 @@ int parseKeepAliveMessage(const string& command, ServerInfo& server) {
     return 0; // If no message count found
 }
 
-
 // Function to send KEEPALIVE messages periodically and remove inactive servers
 void sendKeepAlive() {
     while (true) {
@@ -261,11 +261,15 @@ void sendKeepAlive() {
 
         time_t currentTime = time(0);  // Get the current time
 
+        logMessage("DEBUG", "Number of connected servers: " + to_string(connectedServers.size()));
+
         for (auto it = connectedServers.begin(); it != connectedServers.end(); ) {
             ServerInfo& server = *it;  // Access the server info directly
 
             // Check if the server hasn't sent a KEEPALIVE for more than 120 seconds
             double timeSinceLastKeepAlive = difftime(currentTime, server.lastKeepAlive);
+            logMessage("DEBUG", "Time since last KEEPALIVE for server " + server.groupID + ": " + to_string(timeSinceLastKeepAlive));
+
             if (timeSinceLastKeepAlive > 120) {
                 logMessage("WARNING", "Server " + server.groupID + " has been inactive for too long. Closing connection.");
                 close(server.sockfd);  // Close the socket
@@ -293,27 +297,10 @@ void sendKeepAlive() {
                 // Create the KEEPALIVE message
                 string keepAliveMsg = frameMessage("KEEPALIVE," + to_string(numMessages));
 
-                // Try to send the KEEPALIVE message
+                logMessage("DEBUG", "Attempting to send KEEPALIVE to server " + server.groupID);
                 ssize_t result = send(server.sockfd, keepAliveMsg.c_str(), keepAliveMsg.length(), 0);
                 if (result < 0) {
-                    // Handle connection errors
-                    if (errno == EPIPE || errno == EBADF || errno == ECONNRESET) {
-                        logMessage("ERROR", "Failed to send KEEPALIVE to " + server.ip + ":" + to_string(server.port) + ". Error: " + strerror(errno));
-                        close(server.sockfd);  // Close the socket
-
-                        // Remove the server's pollfd entry from the fds vector
-                        auto fd_it = find_if(fds.begin(), fds.end(), [&](pollfd const& pfd) {
-                            return pfd.fd == server.sockfd;
-                        });
-                        if (fd_it != fds.end()) {
-                            fds.erase(fd_it);
-                        }
-
-                        it = connectedServers.erase(it);  // Remove the server and update iterator
-                        continue;  // Skip to the next server
-                    } else {
-                        logMessage("ERROR", "Unexpected error sending KEEPALIVE to " + server.ip + ":" + to_string(server.port) + ". Error: " + strerror(errno));
-                    }
+                    logMessage("ERROR", "send() failed with errno: " + string(strerror(errno)));
                 } else {
                     // Update the lastKeepAlive time on successful send
                     server.lastKeepAlive = currentTime;
@@ -325,6 +312,7 @@ void sendKeepAlive() {
         }
     }
 }
+
 
 // Function to process client commands and respond appropriately
 void processClientCommand(int clientSocket, vector<pollfd>& fds) {
@@ -409,8 +397,6 @@ int connectToServer(const string& server_ip, int server_port) {
     sendHELOToServer(server_socket);
     return server_socket;
 }
-
-
 
 // HELO function to send HELO command to another server
 string receiveHELOResponse(int sockfd) {
@@ -589,8 +575,11 @@ int main(int argc, char* argv[]) {
     string response = receiveResponseFromServer(server_socket);
     // Hérna á að koma skilaboð frá instructors server
     processServerResponse(response);
-    
 
+    // Start the keep-alive thread
+    thread keepAliveThread(sendKeepAlive);
+    keepAliveThread.detach();  // Detach to run independently
+    
     cout << "Server is running, waiting for connections..." << endl;
 
     while (true) {
