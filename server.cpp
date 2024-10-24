@@ -517,6 +517,7 @@ void processServerResponse(const string& response) {
     }
 }
 
+
 // Function to accept new connections and add them to the poll fds
 void acceptConnections(int server_socket, vector<pollfd>& fds) {
     struct sockaddr_in client_addr;
@@ -583,10 +584,14 @@ int main(int argc, char* argv[]) {
         cerr << "Failed to connect to instruction server. Exiting." << endl;
         exit(EXIT_FAILURE);
     }
-    
+    receiveResponseFromServer(server_socket);
     // Get message from the server and print it
     string response = receiveResponseFromServer(server_socket);
     processServerResponse(response);
+    // Hérna á að koma skilaboð frá instructors server
+    
+
+    cout << "Server is running, waiting for connections..." << endl;
 
     while (true) {
         int poll_count = poll(fds.data(), fds.size(), POLL_TIMEOUT);
