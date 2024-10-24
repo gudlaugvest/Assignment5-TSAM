@@ -588,6 +588,7 @@ int main(int argc, char* argv[]) {
     // Get message from the server and print it
     string response = receiveResponseFromServer(server_socket);
     // Hérna á að koma skilaboð frá instructors server
+    processServerResponse(response);
     
 
     cout << "Server is running, waiting for connections..." << endl;
