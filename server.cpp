@@ -156,18 +156,44 @@ void sendMessageToSocket(int socket, const string& message) {
 }
 
 // Function to receive a framed message from a client/server
-string receiveMessageFromSocket(int socket) {
+string receiveMessageFromSocket(int socket, int maxRetries = 3, int retryDelayMs = 500) {
     char buffer[MAX_MSG_LEN] = {0};
-    int bytesRead = recv(socket, buffer, sizeof(buffer), 0);
-    if (bytesRead <= 0) {
-        perror("recv failed");
-        return "";
+    int attempts = 0;
+    ssize_t bytesRead;
+
+    while (attempts < maxRetries) {
+        bytesRead = recv(socket, buffer, sizeof(buffer), 0);
+        
+        if (bytesRead > 0) {
+            buffer[bytesRead] = '\0'; // Null-terminate the string
+            string message(buffer);
+            return unframeMessage(message); // Return the unframed message
+        } else if (bytesRead == 0) {
+            // If recv returns 0, the peer has performed an orderly shutdown
+            cout << "Client disconnected gracefully." << endl;
+            close(socket); // Close the socket
+            return ""; // No data received
+        } else {
+            // If recv returns an error
+            if (errno == ECONNRESET) {
+                cerr << "Error: Connection reset by peer." << endl;
+                close(socket); // Close the socket
+                return ""; // Exit immediately, connection reset cannot be retried
+            } else if (errno == ETIMEDOUT) {
+                cerr << "Error: Timeout occurred during receiving." << endl;
+            } else {
+                cerr << "Error: recv() failed with error: " << strerror(errno) << endl;
+            }
+
+            // If it's a transient error, retry after a short delay
+            attempts++;
+            cerr << "Retrying recv (" << attempts << "/" << maxRetries << ")..." << endl;
+            this_thread::sleep_for(chrono::milliseconds(retryDelayMs));
+        }
     }
 
-    buffer[bytesRead] = '\0'; // Null-terminate the string
-    string message(buffer);
-
-    return unframeMessage(message); // Return the unframed message
+    cerr << "Failed to receive message after " << maxRetries << " attempts. Giving up." << endl;
+    return ""; // Failed after max retries
 }
 
 // Function to parse KEEPALIVE messages and update the server's lastKeepAlive time
