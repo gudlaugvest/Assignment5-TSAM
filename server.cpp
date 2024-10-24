@@ -587,7 +587,6 @@ int main(int argc, char* argv[]) {
     receiveResponseFromServer(server_socket);
     // Get message from the server and print it
     string response = receiveResponseFromServer(server_socket);
-    processServerResponse(response);
     // Hérna á að koma skilaboð frá instructors server
     
 
