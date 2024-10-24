@@ -496,17 +496,27 @@ string receiveHELOResponse(int sockfd) {
 }
 
 
-// Function to receive response from another server
+// Function to receive response from another server and print it
 string receiveResponseFromServer(int server_socket) {
-    string response = receiveMessageFromSocket(server_socket);
-    if (!response.empty()) {
-        //logMessage("Received response from server: " + response);
-        cout << "Received response from server: " << response << endl;
+    string response = receiveMessageFromSocket(server_socket);  // Receive the raw response
+    return response;
+}
+
+// Function to process the server response, split it by semicolons, and print
+void processServerResponse(const string& response) {
+   if (!response.empty()) {
+        cout << "Received response from server:" << endl;
+        
+        // Split the response by semicolons and print each part on a new line
+        vector<string> responseLines = splitString(response, ';');
+        for (const string& line : responseLines) {
+            cout << line << endl;  // Print each line of the response
+        }
     } else {
         cerr << "No response or connection closed by the server." << endl;
     }
-    return response;
 }
+
 // Function to accept new connections and add them to the poll fds
 void acceptConnections(int server_socket, vector<pollfd>& fds) {
     struct sockaddr_in client_addr;
@@ -573,14 +583,10 @@ int main(int argc, char* argv[]) {
         cerr << "Failed to connect to instruction server. Exiting." << endl;
         exit(EXIT_FAILURE);
     }
-    receiveResponseFromServer(server_socket);
+    
     // Get message from the server and print it
     string response = receiveResponseFromServer(server_socket);
-    cout << "Received message from server: " << response << endl;
-    // Hérna á að koma skilaboð frá instructors server
-    
-
-    cout << "Server is running, waiting for connections..." << endl;
+    processServerResponse(response);
 
     while (true) {
         int poll_count = poll(fds.data(), fds.size(), POLL_TIMEOUT);
