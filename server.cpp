@@ -144,15 +144,42 @@ vector<string> splitString(const string& str, char delimiter) {
 }
 
 
-// Function to send a framed message to a client/server
-void sendMessageToSocket(int socket, const string& message) {
+// Function to send a framed message to a client/server with retry logic
+void sendMessageToSocket(int socket, const string& message, int maxRetries = 3, int retryDelayMs = 500) {
     string framedMessage = frameMessage(message);
-    ssize_t bytesSent = send(socket, framedMessage.c_str(), framedMessage.size(), 0);
-    if (bytesSent < 0) {
-        perror("send failed");
-    } else {
-        cout << "Sent message: " << framedMessage << endl;
+    ssize_t bytesSent;
+    int attempts = 0;
+
+    while (attempts < maxRetries) {
+        bytesSent = send(socket, framedMessage.c_str(), framedMessage.size(), 0);
+
+        if (bytesSent >= 0) {
+            cout << "Sent message: " << framedMessage << endl;
+            return; // Success, no need to retry
+        } else {
+            // Handle specific errors
+            if (errno == EPIPE) {
+                cerr << "Error: Broken pipe. The connection is closed by the peer." << endl;
+                close(socket); // Close the socket
+                return; // Exit immediately, broken pipe cannot be retried
+            } else if (errno == ECONNRESET) {
+                cerr << "Error: Connection reset by peer." << endl;
+                close(socket); // Close the socket
+                return; // Exit immediately, connection reset cannot be retried
+            } else if (errno == ENETUNREACH) {
+                cerr << "Error: Network unreachable." << endl;
+            } else {
+                cerr << "Error: send() failed with error: " << strerror(errno) << endl;
+            }
+
+            // Retry after a short delay for transient errors
+            attempts++;
+            cerr << "Retrying send (" << attempts << "/" << maxRetries << ")..." << endl;
+            this_thread::sleep_for(chrono::milliseconds(retryDelayMs));
+        }
     }
+
+    cerr << "Failed to send message after " << maxRetries << " attempts. Giving up." << endl;
 }
 
 // Function to receive a framed message from a client/server
