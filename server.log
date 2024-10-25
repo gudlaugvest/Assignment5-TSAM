@@ -1,7 +1,28 @@
-[2024-10-24 15:02:22] [INFO] Sent HELO command to server.
-[2024-10-24 15:04:51] [INFO] Sent HELO command to server.
-[2024-10-24 15:05:42] [INFO] Sent HELO command to server.
-[2024-10-24 15:06:02] [INFO] Sent HELO command to server.
-[2024-10-24 15:07:01] [INFO] Sent HELO command to server.
-[2024-10-24 20:13:08] [INFO] Sent HELO command to server.
-[2024-10-24 20:16:28] [INFO] Sent HELO command to server.
+[2024-10-25 11:11:39] [INFO] Sent HELO to server at 130.208.246.249:5002
+[2024-10-25 11:11:39] [INFO] Received command: HELO,Instr_2
+[2024-10-25 11:11:39] [INFO] Sent SERVERS response: SERVERS,
+[2024-10-25 11:11:39] [INFO] Received command: SERVERS,Instr_2,130.208.246.249,5002;Instr_3,130.208.246.249,5003;A5_300,130.208.246.249,4300;A5_3,130.208.246.249,4003;A5_69,130.208.246.249,4069;Instr_1,130.208.246.249,5001;A5_169,130.208.246.249,4169;A5_18,178.19.50.26,-1;
+[2024-10-25 11:11:39] [INFO] Sent HELO to server at 130.208.246.249:5002
+[2024-10-25 11:11:39] [INFO] Connected to new server Instr_2 at 130.208.246.249:5002
+[2024-10-25 11:11:39] [INFO] Sent HELO to server at 130.208.246.249:5003
+[2024-10-25 11:11:39] [INFO] Connected to new server Instr_3 at 130.208.246.249:5003
+[2024-10-25 11:11:39] [INFO] Sent HELO to server at 130.208.246.249:4300
+[2024-10-25 11:11:39] [INFO] Connected to new server A5_300 at 130.208.246.249:4300
+[2024-10-25 11:11:39] [INFO] Sent HELO to server at 130.208.246.249:4003
+[2024-10-25 11:11:39] [INFO] Connected to new server A5_3 at 130.208.246.249:4003
+[2024-10-25 11:11:39] [INFO] Sent HELO to server at 130.208.246.249:4069
+[2024-10-25 11:11:39] [INFO] Connected to new server A5_69 at 130.208.246.249:4069
+[2024-10-25 11:11:39] [INFO] Sent HELO to server at 130.208.246.249:5001
+[2024-10-25 11:11:39] [INFO] Connected to new server Instr_1 at 130.208.246.249:5001
+[2024-10-25 11:11:39] [INFO] Sent HELO to server at 130.208.246.249:4169
+[2024-10-25 11:11:39] [INFO] Connected to new server A5_169 at 130.208.246.249:4169
+[2024-10-25 11:12:39] [INFO] Sending KEEPALIVE to all connected servers.
+[2024-10-25 11:12:39] [DEBUG] Number of connected servers: 7
+[2024-10-25 11:12:39] [DEBUG] Time since last KEEPALIVE for server Instr_2: 60.000000
+[2024-10-25 11:12:39] [DEBUG] Attempting to send KEEPALIVE to server Instr_2
+[2024-10-25 11:12:39] [INFO] Sent KEEPALIVE to server Instr_2 with 0 messages.
+[2024-10-25 11:12:39] [DEBUG] Time since last KEEPALIVE for server Instr_3: 60.000000
+[2024-10-25 11:12:39] [DEBUG] Attempting to send KEEPALIVE to server Instr_3
+[2024-10-25 11:12:39] [INFO] Sent KEEPALIVE to server Instr_3 with 0 messages.
+[2024-10-25 11:12:39] [DEBUG] Time since last KEEPALIVE for server A5_300: 60.000000
+[2024-10-25 11:12:39] [DEBUG] Attempting to send KEEPALIVE to server A5_300

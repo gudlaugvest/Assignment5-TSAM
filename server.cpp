@@ -313,61 +313,6 @@ void sendKeepAlive() {
     }
 }
 
-
-// Function to process client commands and respond appropriately
-void processClientCommand(int clientSocket, vector<pollfd>& fds) {
-    string command = receiveMessageFromSocket(clientSocket);
-    if (command.empty()) {
-        cout << "Client disconnected!" << endl;
-        close(clientSocket);
-
-        auto it = find_if(fds.begin(), fds.end(), [&clientSocket](const pollfd& pfd) {
-            return pfd.fd == clientSocket;
-        });
-
-        if (it != fds.end()) {
-            fds.erase(it);
-        }
-        return;
-    }
-
-    // Log the received command
-    logMessage("INFO", "Received command: " + command);
-
-    if (command == "LISTSERVERS") {
-        string response = "Connected Servers: " + to_string(fds.size() - 1);
-        sendMessageToSocket(clientSocket, response);
-        logMessage("INFO", "Sent LISTSERVERS response.");
-
-    } else if (command == "HELO") {
-        string response = "HELO from server: " + GROUP_ID;
-        sendMessageToSocket(clientSocket, response);
-        logMessage("INFO", "Sent HELO response.");
-
-    } else if (command.find("SENDMSG") != string::npos) {
-        logMessage("INFO", "Received SENDMSG: " + command);
-        sendMessageToSocket(clientSocket, "Message received!");
-
-    } else if (command == "GETMSG") {
-        string response = "No messages available.";
-        sendMessageToSocket(clientSocket, response);
-        logMessage("INFO", "Sent GETMSG response.");
-
-    } else {
-        string response = "ERROR: Unknown command received.";
-        sendMessageToSocket(clientSocket, response);
-        logMessage("ERROR", "Sent ERROR response.");
-    }
-
-}
-
-// Function to send HELO command to another server
-void sendHELOToServer(int server_socket) {
-    string helo_command = "HELO," + GROUP_ID;
-    sendMessageToSocket(server_socket, helo_command);
-    logMessage("INFO", "Sent HELO command to server.");
-}
-
 // Function to connect to another server
 int connectToServer(const string& server_ip, int server_port) {
     int server_socket = socket(AF_INET, SOCK_STREAM, 0);
@@ -394,92 +339,115 @@ int connectToServer(const string& server_ip, int server_port) {
     }
 
     cout << "Connected to server at " << server_ip << ":" << server_port << endl;
-    sendHELOToServer(server_socket);
+    string heloMessage = "HELO," + GROUP_ID;
+    sendMessageToSocket(server_socket, heloMessage);
+    logMessage("INFO", "Sent HELO to server at " + server_ip + ":" + to_string(server_port));
     return server_socket;
 }
 
-// HELO function to send HELO command to another server
-string receiveHELOResponse(int sockfd) {
-    char buffer[MAX_MSG_LEN];
-    memset(buffer, 0, MAX_MSG_LEN);
+void handleServersResponse(const string& serversList, vector<pollfd>& fds) {
+    // Parse the server list starting after "SERVERS,"
+    vector<string> servers = splitString(serversList, ';');
 
-    fd_set readfds;
-    struct timeval timeout;
+    for (const auto& serverInfo : servers) {
+        vector<string> fields = splitString(serverInfo, ',');
+        if (fields.size() == 3) {
+            string groupID = fields[0];
+            string ipAddress = fields[1];
+            int serverPort = stoi(fields[2]);
 
-    FD_ZERO(&readfds);
-    FD_SET(sockfd, &readfds);
+            // Check if this server is already connected
+            bool alreadyConnected = any_of(connectedServers.begin(), connectedServers.end(), 
+                [&](const ServerInfo& server) { return server.ip == ipAddress && server.port == serverPort; });
 
-    timeout.tv_sec = 10;  // 10 seconds timeout
-    timeout.tv_usec = 0;
+            if (!alreadyConnected) {
+                // Connect to the new server
+                int serverSockfd = connectToServer(ipAddress, serverPort);
+                if (serverSockfd >= 0) {
+                    // Add the server to connectedServers
+                    ServerInfo newServer = {groupID, "Server_" + groupID, ipAddress, serverPort, true, serverSockfd, time(0)};
+                    connectedServers.push_back(newServer);
 
-    logMessage("DEBUG", "Waiting for HELO or SERVERS response on socket " + to_string(sockfd));
+                    // Add the new server to fds for polling
+                    pollfd newPollFd;
+                    newPollFd.fd = serverSockfd;
+                    newPollFd.events = POLLIN;
+                    fds.push_back(newPollFd);
 
-    int activity = select(sockfd + 1, &readfds, NULL, NULL, &timeout);
-    if (activity > 0 && FD_ISSET(sockfd, &readfds)) {
-        logMessage("DEBUG", "Receiving response on socket " + to_string(sockfd));
-        int bytesReceived = recv(sockfd, buffer, MAX_MSG_LEN, 0);
-        if (bytesReceived > 0) {
-            string response(buffer, bytesReceived);
-            logMessage("INFO", "Received framed response: " + response + " on socket " + to_string(sockfd));
-
-            // Unframe the message (strip SOH and EOT)
-            string unframedResponse = unframeMessage(response);
-            //logMessage("DEBUG, Unframed response: " + unframedResponse);
-
-            // Check if the response starts with "SERVERS,"
-            if (unframedResponse.rfind("SERVERS", 0) == 0) {
-                //logMessage("DEBUG: Valid SERVERS prefix found in response: " + unframedResponse);
-
-                // Remove "SERVERS," from the response
-                string serversList = unframedResponse.substr(8);
-
-                // Split the servers by ';'
-                vector<string> servers = splitString(serversList, ';');
-                for (const auto& serverInfo : servers) {
-                    // Split the serverInfo by ','
-                    vector<string> fields = splitString(serverInfo, ',');
-                    if (fields.size() == 3) {
-                        string groupID = fields[0];
-                        string ipAddress = fields[1];
-                        int serverPort = stoi(fields[2]);
-                        logMessage("INFO", "Adding server from SERVERS response: " + groupID + " " + ipAddress + ":" + to_string(serverPort));
-
-                        // Try to connect to the server
-                        int serverSockfd = connectToServer(ipAddress, serverPort);
-                        if (serverSockfd >= 0) {
-                            ServerInfo newServer = {groupID, "Server_" + groupID, ipAddress, serverPort};
-                            connectedServers.push_back(newServer);
-
-                            pollfd newPollFd;
-                            newPollFd.fd = serverSockfd;
-                            newPollFd.events = POLLIN;
-                            fds.push_back(newPollFd);  // Add to poll fds
-
-                            logMessage("INFO", "Connected to server " + groupID + " at " + ipAddress + ":" + to_string(serverPort));
-                        } else {
-                            logMessage("ERROR", "Failed to connect to server: " + groupID);
-                        }
-                    } else {
-                        logMessage("ERROR", "Invalid server info format in SERVERS response: " + serverInfo);
-                    }
+                    logMessage("INFO", "Connected to new server " + groupID + " at " + ipAddress + ":" + to_string(serverPort));
+                } else {
+                    logMessage("ERROR", "Failed to connect to server: " + groupID);
                 }
-                return "SERVERS command processed.";
             } else {
-                logMessage("ERROR", "Response doesn't start with 'SERVERS,' : " + unframedResponse);
-                return "";
+                logMessage("INFO", "Already connected to server " + groupID + " at " + ipAddress + ":" + to_string(serverPort));
             }
         } else {
-            logMessage("ERROR", "No data received in response, bytes received: " + to_string(bytesReceived));
-            return "";
+            logMessage("ERROR", "Invalid server info format in SERVERS response: " + serverInfo);
         }
-    } else if (activity == 0) {
-        logMessage("WARNING", "No response from server after HELO or SERVERS, timeout reached on socket " + to_string(sockfd));
-        return "";  // Timeout reached
-    } else {
-        logMessage("ERROR", "Error in select() during response waiting.");
-        return "";
     }
 }
+
+// Function to process client commands and respond appropriately
+void processClientCommand(int clientSocket, vector<pollfd>& fds) {
+    string command = receiveMessageFromSocket(clientSocket);
+    if (command.empty()) {
+        cout << "Client disconnected!" << endl;
+        close(clientSocket);
+
+        auto it = find_if(fds.begin(), fds.end(), [&clientSocket](const pollfd& pfd) {
+            return pfd.fd == clientSocket;
+        });
+
+        if (it != fds.end()) {
+            fds.erase(it);
+        }
+        return;
+    }
+
+    // Log the received command
+    logMessage("INFO", "Received command: " + command);
+
+    // If the command starts with HELO, send back SERVERS response
+    if (command.find("HELO") == 0) {
+        // Construct SERVERS response with directly connected servers
+        string serversList = "SERVERS,";
+        for (const auto& server : connectedServers) {
+            serversList += server.groupID + "," + server.ip + "," + to_string(server.port) + ";";
+        }
+        sendMessageToSocket(clientSocket, serversList);
+        logMessage("INFO", "Sent SERVERS response: " + serversList);
+
+    } else if (command.find("SERVERS") == 0) {
+        // Handle SERVERS command to connect to new servers
+        string serversList = command.substr(8);  // Remove "SERVERS," from the command
+        handleServersResponse(serversList, fds);
+        logMessage("INFO", "Processed SERVERS command.");
+
+    } else if (command == "LISTSERVERS") {
+        // Handle LISTSERVERS command to show connected servers
+        string response = "Connected Servers: " + to_string(fds.size() - 1);
+        sendMessageToSocket(clientSocket, response);
+        logMessage("INFO", "Sent LISTSERVERS response.");
+
+    } else if (command.find("SENDMSG") != string::npos) {
+        // Handle SENDMSG command to confirm message received
+        logMessage("INFO", "Received SENDMSG: " + command);
+        sendMessageToSocket(clientSocket, "Message received!");
+
+    } else if (command == "GETMSG") {
+        // Handle GETMSG command to retrieve messages
+        string response = "No messages available.";
+        sendMessageToSocket(clientSocket, response);
+        logMessage("INFO", "Sent GETMSG response.");
+
+    } else {
+        // Handle unknown commands
+        string response = "ERROR: Unknown command received.";
+        sendMessageToSocket(clientSocket, response);
+        logMessage("ERROR", "Sent ERROR response.");
+    }
+}
+
 
 
 // Function to receive response from another server and print it
@@ -554,27 +522,28 @@ int main(int argc, char* argv[]) {
         exit(EXIT_FAILURE);
     }
 
-    // Polling set up
+    // Polling setup for incoming connections
     pollfd server_fd;
     server_fd.fd = listenSock;
     server_fd.events = POLLIN;
     fds.push_back(server_fd);
 
-    // Instructors IP address and port number
+    // Instructor's IP address and port number
     string instructorsIP = "130.208.246.249";
-    int instructorsPort = 5001;
+    int instructorsPort = 5002;
 
-        // Step 1: Connect to the instruction server
+    // Step 1: Connect to the instructor server
     int server_socket = connectToServer(instructorsIP, instructorsPort);
     if (server_socket < 0) {
-        cerr << "Failed to connect to instruction server. Exiting." << endl;
+        cerr << "Failed to connect to instructor server. Exiting." << endl;
         exit(EXIT_FAILURE);
     }
-    receiveResponseFromServer(server_socket);
-    // Get message from the server and print it
-    string response = receiveResponseFromServer(server_socket);
-    // Hérna á að koma skilaboð frá instructors server
-    processServerResponse(response);
+
+    // Step 2: Add the instructor server's socket to the poll fds vector for continuous monitoring
+    pollfd instructor_fd;
+    instructor_fd.fd = server_socket;
+    instructor_fd.events = POLLIN;
+    fds.push_back(instructor_fd);
 
     // Start the keep-alive thread
     thread keepAliveThread(sendKeepAlive);
@@ -582,6 +551,7 @@ int main(int argc, char* argv[]) {
     
     cout << "Server is running, waiting for connections..." << endl;
 
+    // Main polling loop for handling incoming commands and connections
     while (true) {
         int poll_count = poll(fds.data(), fds.size(), POLL_TIMEOUT);
         if (poll_count < 0) {
@@ -589,10 +559,12 @@ int main(int argc, char* argv[]) {
             break;
         }
 
+        // Check for new incoming connections
         if (fds[0].revents & POLLIN) {
             acceptConnections(listenSock, fds);
         }
 
+        // Process commands from all connected sockets, including the instructor server
         for (size_t i = 1; i < fds.size(); i++) {
             if (fds[i].revents & POLLIN) {
                 processClientCommand(fds[i].fd, fds);
@@ -601,4 +573,4 @@ int main(int argc, char* argv[]) {
     }
 
     return 0;
-} 
+}
