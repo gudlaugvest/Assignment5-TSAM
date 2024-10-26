@@ -65,9 +65,9 @@ void logMessage(const string& level, const string& message) {
 }
 
 
-// Function to retrieve the public IP using an external service
+// Function to retrieve the public IPv4 address using an external service
 string getPublicIP() {
-    string command = "curl -s ifconfig.me";  // Use an external service to get public IP
+    string command = "curl -s4 ifconfig.me";  // Use the `-4` flag to force IPv4
     array<char, 128> buffer;
     string result;
 
@@ -80,6 +80,8 @@ string getPublicIP() {
     pclose(pipe);
     return result;
 }
+
+// Do we need this function????
 
 // Ping function to check if the other server is reachable
 bool pingServer(const string& ip) {
@@ -388,7 +390,7 @@ void handleServersResponse(const string& serversList, vector<pollfd>& fds) {
 }
 
 // Function to process client commands and respond appropriately
-void processClientCommand(int clientSocket, vector<pollfd>& fds) {
+void processClientCommand(int clientSocket, vector<pollfd>& fds, int port) {
     string command = receiveMessageFromSocket(clientSocket);
     if (command.empty()) {
         cout << "Client disconnected!" << endl;
@@ -411,6 +413,7 @@ void processClientCommand(int clientSocket, vector<pollfd>& fds) {
     if (command.find("HELO") == 0) {
         // Construct SERVERS response with directly connected servers
         string serversList = "SERVERS,";
+        serversList += GROUP_ID + "," + getPublicIP() + "," + to_string(port) + ";";
         for (const auto& server : connectedServers) {
             serversList += server.groupID + "," + server.ip + "," + to_string(server.port) + ";";
         }
@@ -457,19 +460,19 @@ string receiveResponseFromServer(int server_socket) {
 }
 
 // Function to process the server response, split it by semicolons, and print
-void processServerResponse(const string& response) {
-   if (!response.empty()) {
-        cout << "Received response from server:" << endl;
+// void processServerResponse(const string& response) {
+//    if (!response.empty()) {
+//         cout << "Received response from server:" << endl;
         
-        // Split the response by semicolons and print each part on a new line
-        vector<string> responseLines = splitString(response, ';');
-        for (const string& line : responseLines) {
-            cout << line << endl;  // Print each line of the response
-        }
-    } else {
-        cerr << "No response or connection closed by the server." << endl;
-    }
-}
+//         // Split the response by semicolons and print each part on a new line
+//         vector<string> responseLines = splitString(response, ';');
+//         for (const string& line : responseLines) {
+//             cout << line << endl;  // Print each line of the response
+//         }
+//     } else {
+//         cerr << "No response or connection closed by the server." << endl;
+//     }
+// }
 
 
 // Function to accept new connections and add them to the poll fds
@@ -567,7 +570,7 @@ int main(int argc, char* argv[]) {
         // Process commands from all connected sockets, including the instructor server
         for (size_t i = 1; i < fds.size(); i++) {
             if (fds[i].revents & POLLIN) {
-                processClientCommand(fds[i].fd, fds);
+                processClientCommand(fds[i].fd, fds, port);
             }
         }
     }
