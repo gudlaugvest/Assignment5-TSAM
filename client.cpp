@@ -197,8 +197,9 @@ void clientCommunication(int serverSocket) {
             continue;
         }
 
+        // I think we can skip this part
         // Send the command to the server
-        sendCommand(serverSocket, command);
+       // sendCommand(serverSocket, command);
 
         // Receive response from the server
         string response = receiveCommand(serverSocket);

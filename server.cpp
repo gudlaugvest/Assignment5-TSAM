@@ -10,6 +10,7 @@
 #include <poll.h>
 #include <fstream>
 #include <netdb.h> // For getaddrinfo
+#include <sstream> // For stringstream
 #include <thread> // For thread operations
 #include <chrono> // For sleep in thread
 #include <map> // For message storage
@@ -45,6 +46,9 @@ vector<pollfd> fds;  // Declare fds globally
 map<string, vector<string>> messageQueues;  // Store messages for each group
 mutex serverMutex;  // Mutex for thread safety
 
+// Global variable to store messages for each group
+map<string, vector<string>> groupMessages;  // Maps group ID to a list of messages
+
 // Function to get the current timestamp
 string getTimestamp() {
     time_t now = time(nullptr);
@@ -67,7 +71,7 @@ void logMessage(const string& level, const string& message) {
 
 // Function to retrieve the public IPv4 address using an external service
 string getPublicIP() {
-    string command = "curl -s4 ifconfig.me";  // Use the `-4` flag to force IPv4
+    string command = "curl -s4 ifconfig.me";
     array<char, 128> buffer;
     string result;
 
@@ -191,8 +195,8 @@ string receiveMessageFromSocket(int socket, int maxRetries = 3, int retryDelayMs
     ssize_t bytesRead;
 
     while (attempts < maxRetries) {
-        bytesRead = recv(socket, buffer, sizeof(buffer), 0);
-        
+        bytesRead = recv(socket, buffer, sizeof(buffer) - 1, 0); // Reserve space for null-termination
+
         if (bytesRead > 0) {
             buffer[bytesRead] = '\0'; // Null-terminate the string
             string message(buffer);
@@ -208,22 +212,26 @@ string receiveMessageFromSocket(int socket, int maxRetries = 3, int retryDelayMs
                 cerr << "Error: Connection reset by peer." << endl;
                 close(socket); // Close the socket
                 return ""; // Exit immediately, connection reset cannot be retried
-            } else if (errno == ETIMEDOUT) {
-                cerr << "Error: Timeout occurred during receiving." << endl;
+            } else if (errno == ETIMEDOUT || errno == EAGAIN || errno == EWOULDBLOCK) {
+                cerr << "Warning: Transient error during receiving, retrying (" 
+                     << attempts + 1 << "/" << maxRetries << ")..." << endl;
             } else {
                 cerr << "Error: recv() failed with error: " << strerror(errno) << endl;
+                close(socket); // Close socket on non-recoverable error
+                return "";
             }
 
             // If it's a transient error, retry after a short delay
             attempts++;
-            cerr << "Retrying recv (" << attempts << "/" << maxRetries << ")..." << endl;
             this_thread::sleep_for(chrono::milliseconds(retryDelayMs));
         }
     }
 
-    cerr << "Failed to receive message after " << maxRetries << " attempts. Giving up." << endl;
-    return ""; // Failed after max retries
+    cerr << "Error: Max retries reached, giving up on receiving data." << endl;
+    close(socket); // Close the socket as max retries reached
+    return ""; // Failed to receive data within max retries
 }
+
 
 // Function to parse KEEPALIVE messages and update the server's lastKeepAlive time
 int parseKeepAliveMessage(const string& command, ServerInfo& server) {
@@ -257,7 +265,7 @@ int parseKeepAliveMessage(const string& command, ServerInfo& server) {
 void sendKeepAlive() {
     while (true) {
         this_thread::sleep_for(chrono::seconds(KEEPALIVE_INTERVAL));
-        logMessage("INFO",  "Sending KEEPALIVE to all connected servers.");
+        logMessage("INFO", "Sending KEEPALIVE to all connected servers.");
 
         lock_guard<mutex> lock(serverMutex);  // Ensure thread-safe access to connected servers
 
@@ -291,22 +299,25 @@ void sendKeepAlive() {
             // Only send a KEEPALIVE message if 60 seconds have passed since the last one
             if (difftime(currentTime, server.lastKeepAlive) >= 60) {
                 // Count the number of messages waiting for this server
-                int numMessages = 0;
-                if (messageQueues.find(server.groupID) != messageQueues.end()) {
-                    numMessages = messageQueues[server.groupID].size();
-                }
+                int numMessages = messageQueues.count(server.groupID) ? messageQueues[server.groupID].size() : 0;
 
                 // Create the KEEPALIVE message
                 string keepAliveMsg = frameMessage("KEEPALIVE," + to_string(numMessages));
 
-                logMessage("DEBUG", "Attempting to send KEEPALIVE to server " + server.groupID);
-                ssize_t result = send(server.sockfd, keepAliveMsg.c_str(), keepAliveMsg.length(), 0);
-                if (result < 0) {
-                    logMessage("ERROR", "send() failed with errno: " + string(strerror(errno)));
+                logMessage("DEBUG", "Attempting to send KEEPALIVE to server " + server.groupID + " with socket " + to_string(server.sockfd));
+                
+                // Check if the socket is valid before sending
+                if (server.sockfd >= 0) {
+                    ssize_t result = send(server.sockfd, keepAliveMsg.c_str(), keepAliveMsg.length(), 0);
+                    if (result < 0) {
+                        logMessage("ERROR", "send() failed for server " + server.groupID + " with socket " + to_string(server.sockfd) + " errno: " + string(strerror(errno)));
+                    } else {
+                        // Update the lastKeepAlive time on successful send
+                        server.lastKeepAlive = currentTime;
+                        logMessage("INFO", "Sent KEEPALIVE to server " + server.groupID + " with " + to_string(numMessages) + " messages.");
+                    }
                 } else {
-                    // Update the lastKeepAlive time on successful send
-                    server.lastKeepAlive = currentTime;
-                    logMessage("INFO", "Sent KEEPALIVE to server " + server.groupID + " with " + to_string(numMessages) + " messages.");
+                    logMessage("ERROR", "Invalid socket for server " + server.groupID + ". Skipping send.");
                 }
             }
 
@@ -314,6 +325,7 @@ void sendKeepAlive() {
         }
     }
 }
+
 
 // Function to connect to another server
 int connectToServer(const string& server_ip, int server_port) {
@@ -389,7 +401,23 @@ void handleServersResponse(const string& serversList, vector<pollfd>& fds) {
     }
 }
 
-// Function to process client commands and respond appropriately
+// Function to retrieve messages for a given group
+string retrieveMessagesForGroup(const string& groupID) {
+    // Check if the group exists in the map
+    auto it = groupMessages.find(groupID);
+    if (it != groupMessages.end() && !it->second.empty()) {
+        // Construct the response with all messages for the group
+        stringstream response;
+        response << "Messages for group " << groupID << ": ";
+        
+        for (const auto& message : it->second) {
+            response << message << "; ";  // Append each message with a separator
+        }
+        return response.str();  // Return the concatenated messages
+    }
+    return "No messages available for group " + groupID + ".";
+}
+
 void processClientCommand(int clientSocket, vector<pollfd>& fds, int port) {
     string command = receiveMessageFromSocket(clientSocket);
     if (command.empty()) {
@@ -409,11 +437,9 @@ void processClientCommand(int clientSocket, vector<pollfd>& fds, int port) {
     // Log the received command
     logMessage("INFO", "Received command: " + command);
 
-    // If the command starts with HELO, send back SERVERS response
+    // Check for HELO command
     if (command.find("HELO") == 0) {
-        // Construct SERVERS response with directly connected servers
-        string serversList = "SERVERS,";
-        serversList += GROUP_ID + "," + getPublicIP() + "," + to_string(port) + ";";
+        string serversList = "SERVERS," + GROUP_ID + "," + getPublicIP() + "," + to_string(port) + ";";
         for (const auto& server : connectedServers) {
             serversList += server.groupID + "," + server.ip + "," + to_string(server.port) + ";";
         }
@@ -421,35 +447,61 @@ void processClientCommand(int clientSocket, vector<pollfd>& fds, int port) {
         logMessage("INFO", "Sent SERVERS response: " + serversList);
 
     } else if (command.find("SERVERS") == 0) {
-        // Handle SERVERS command to connect to new servers
         string serversList = command.substr(8);  // Remove "SERVERS," from the command
         handleServersResponse(serversList, fds);
         logMessage("INFO", "Processed SERVERS command.");
 
     } else if (command == "LISTSERVERS") {
-        // Handle LISTSERVERS command to show connected servers
         string response = "Connected Servers: " + to_string(fds.size() - 1);
         sendMessageToSocket(clientSocket, response);
-        logMessage("INFO", "Sent LISTSERVERS response.");
+        logMessage("INFO", "Sent LISTSERVERS response: " + response);
 
-    } else if (command.find("SENDMSG") != string::npos) {
-        // Handle SENDMSG command to confirm message received
-        logMessage("INFO", "Received SENDMSG: " + command);
-        sendMessageToSocket(clientSocket, "Message received!");
+    } else if (command.find("SENDMSG") == 0) {
+        // Parse SENDMSG command
+        size_t pos1 = command.find(",", 8); // Find first comma after SENDMSG
+        size_t pos2 = command.find(",", pos1 + 1); // Find second comma
+        if (pos1 != string::npos && pos2 != string::npos) {
+            string toGroupID = command.substr(8, pos1 - 8);
+            string fromGroupID = command.substr(pos1 + 1, pos2 - pos1 - 1);
+            string messageContent = command.substr(pos2 + 1);
 
-    } else if (command == "GETMSG") {
-        // Handle GETMSG command to retrieve messages
-        string response = "No messages available.";
-        sendMessageToSocket(clientSocket, response);
-        logMessage("INFO", "Sent GETMSG response.");
+            if (messageContent.size() > 5000) {
+                string response = "ERROR: Message exceeds maximum length of 5000 bytes.";
+                sendMessageToSocket(clientSocket, response);
+                logMessage("ERROR", response);
+            } else {
+                // Store the message in the group's message list
+                groupMessages[toGroupID].push_back(messageContent);
+                logMessage("INFO", "Message sent from " + fromGroupID + " to " + toGroupID + ": " + messageContent);
+                sendMessageToSocket(clientSocket, "Message received!");
+            }
+        } else {
+            string response = "ERROR: SENDMSG command format invalid.";
+            sendMessageToSocket(clientSocket, response);
+            logMessage("ERROR", response);
+        }
+
+    } else if (command.find("GETMSGS") == 0) {
+        size_t pos = command.find(","); // Find comma
+        if (pos != string::npos) {
+            string groupID = command.substr(8, pos - 8);
+            // Logic to retrieve messages for the specified group
+            string response = retrieveMessagesForGroup(groupID);
+            sendMessageToSocket(clientSocket, response);
+            logMessage("INFO", "Sent GETMSGS response for group " + groupID + ": " + response);
+        } else {
+            string response = "ERROR: GETMSGS command format invalid.";
+            sendMessageToSocket(clientSocket, response);
+            logMessage("ERROR", response);
+        }
 
     } else {
-        // Handle unknown commands
         string response = "ERROR: Unknown command received.";
         sendMessageToSocket(clientSocket, response);
-        logMessage("ERROR", "Sent ERROR response.");
+        logMessage("ERROR", "Sent ERROR response: " + response);
     }
 }
+
 
 
 

@@ -1,82 +1,916 @@
-[2024-10-26 10:08:19] [INFO] Sent HELO to server at 130.208.246.249:5002
-[2024-10-26 10:08:19] [INFO] Received command: HELO,Instr_2
-[2024-10-26 10:08:20] [INFO] Sent SERVERS response: SERVERS,A5_18,46.182.184.211,4001;
-[2024-10-26 10:08:20] [INFO] Received command: SERVERS,Instr_2,130.208.246.249,5002;Instr_3,130.208.246.249,5003;A5_3,130.208.246.249,4003;A5_18,46.182.184.211,-1;Instr_1,130.208.246.249,5001;
-[2024-10-26 10:08:20] [INFO] Sent HELO to server at 130.208.246.249:5002
-[2024-10-26 10:08:20] [INFO] Connected to new server Instr_2 at 130.208.246.249:5002
-[2024-10-26 10:08:20] [INFO] Sent HELO to server at 130.208.246.249:5003
-[2024-10-26 10:08:20] [INFO] Connected to new server Instr_3 at 130.208.246.249:5003
-[2024-10-26 10:08:20] [INFO] Sent HELO to server at 130.208.246.249:4003
-[2024-10-26 10:08:20] [INFO] Connected to new server A5_3 at 130.208.246.249:4003
-[2024-10-26 10:09:19] [INFO] Sending KEEPALIVE to all connected servers.
-[2024-10-26 10:09:19] [DEBUG] Number of connected servers: 3
-[2024-10-26 10:09:19] [DEBUG] Time since last KEEPALIVE for server Instr_2: 59.000000
-[2024-10-26 10:09:19] [DEBUG] Time since last KEEPALIVE for server Instr_3: 59.000000
-[2024-10-26 10:09:19] [DEBUG] Time since last KEEPALIVE for server A5_3: 59.000000
-[2024-10-26 10:09:35] [ERROR] Failed to connect to server: A5_18
-[2024-10-26 10:09:35] [INFO] Sent HELO to server at 130.208.246.249:5001
-[2024-10-26 10:09:35] [INFO] Connected to new server Instr_1 at 130.208.246.249:5001
-[2024-10-26 10:09:35] [ERROR] Invalid server info format in SERVERS response: 
-[2024-10-26 10:09:35] [INFO] Processed SERVERS command.
-[2024-10-26 10:09:35] [INFO] Received command: KEEPALIVE,0
-[2024-10-26 10:09:35] [ERROR] Sent ERROR response.
-[2024-10-26 10:09:35] [INFO] Received command: HELO,Instr_2
-[2024-10-26 10:09:35] [INFO] Sent SERVERS response: SERVERS,A5_18,46.182.184.211,4001;Instr_2,130.208.246.249,5002;Instr_3,130.208.246.249,5003;A5_3,130.208.246.249,4003;Instr_1,130.208.246.249,5001;
-[2024-10-26 10:09:35] [INFO] Received command: HELO,Instr_3SERVERS,Instr_3,130.208.246.249,5003;ORACLE,130.208.246.249,5004;Instr_2,130.208.246.249,5002;A5_3,130.208.246.249,4003;A5_18,46.182.184.211,-1;A5_300,130.208.246.249,4300;KEEPALIVE,0
-[2024-10-26 10:09:35] [INFO] Sent SERVERS response: SERVERS,A5_18,46.182.184.211,4001;Instr_2,130.208.246.249,5002;Instr_3,130.208.246.249,5003;A5_3,130.208.246.249,4003;Instr_1,130.208.246.249,5001;
-[2024-10-26 10:09:35] [INFO] Received command: HELO,A5_3SENDMSG,A5_18,A5_3,Hello from A5_3!!!SERVERS,A5_3,130.208.246.249,4003;A5_18,46.182.184.211,-1;Instr_1,130.208.246.249,5001;Instr_3,130.208.246.249,5003;Instr_2,130.208.246.249,5002;A5_69,130.208.246.249,4069;A5_34,130.208.246.249,4034;KEEPALIVE,0
-[2024-10-26 10:09:35] [INFO] Sent SERVERS response: SERVERS,A5_18,46.182.184.211,4001;Instr_2,130.208.246.249,5002;Instr_3,130.208.246.249,5003;A5_3,130.208.246.249,4003;Instr_1,130.208.246.249,5001;
-[2024-10-26 10:09:35] [INFO] Received command: ERROR,Instr_2,A5_18,Unknown/unrecognised command
-[2024-10-26 10:09:35] [ERROR] Sent ERROR response.
-[2024-10-26 10:09:35] [INFO] Received command: HELO,Instr_1SERVERS,Instr_1,130.208.246.249,5001;Instr_2,130.208.246.249,5002;A5_300,130.208.246.249,4300;A5_3,130.208.246.249,4003;NUMBER,130.208.246.249,5005;A5_18,46.182.184.211,-1;
-[2024-10-26 10:09:36] [INFO] Sent SERVERS response: SERVERS,A5_18,46.182.184.211,4001;Instr_2,130.208.246.249,5002;Instr_3,130.208.246.249,5003;A5_3,130.208.246.249,4003;Instr_1,130.208.246.249,5001;
-[2024-10-26 10:09:36] [INFO] Received command: ERROR,Instr_2,A5_18,Unknown/unrecognised command
-[2024-10-26 10:09:36] [ERROR] Sent ERROR response.
-[2024-10-26 10:09:36] [INFO] Received command: ERROR,Instr_2,A5_18,Unknown/unrecognised command
-[2024-10-26 10:09:36] [ERROR] Sent ERROR response.
-[2024-10-26 10:10:02] [INFO] Received command: HELO,A5_3
-[2024-10-26 10:10:05] [INFO] Sent SERVERS response: SERVERS,A5_18,46.182.184.211,4001;Instr_2,130.208.246.249,5002;Instr_3,130.208.246.249,5003;A5_3,130.208.246.249,4003;Instr_1,130.208.246.249,5001;
-[2024-10-26 10:10:05] [INFO] Received command: KEEPALIVE,0
-[2024-10-26 10:10:05] [ERROR] Sent ERROR response.
-[2024-10-26 10:10:05] [INFO] Received command: KEEPALIVE,0
-[2024-10-26 10:10:05] [ERROR] Sent ERROR response.
-[2024-10-26 10:10:05] [INFO] Received command: ERROR,Instr_3,A5_18,Unknown/unrecognised command
-[2024-10-26 10:10:05] [ERROR] Sent ERROR response.
-[2024-10-26 10:10:05] [INFO] Received command: ERROR,Instr_1,A5_18,Unknown/unrecognised command
-[2024-10-26 10:10:05] [ERROR] Sent ERROR response.
-[2024-10-26 10:10:05] [INFO] Received command: ERROR,Instr_3,A5_18,Unknown/unrecognised command
-[2024-10-26 10:10:05] [ERROR] Sent ERROR response.
-[2024-10-26 10:10:05] [INFO] Received command: ERROR,Instr_1,A5_18,Unknown/unrecognised command
-[2024-10-26 10:10:05] [ERROR] Sent ERROR response.
-[2024-10-26 10:10:05] [INFO] Received command: ERROR,Instr_3,A5_18,Unknown/unrecognised command
-[2024-10-26 10:10:05] [ERROR] Sent ERROR response.
-[2024-10-26 10:10:05] [INFO] Received command: ERROR,Instr_1,A5_18,Unknown/unrecognised command
-[2024-10-26 10:10:05] [ERROR] Sent ERROR response.
-[2024-10-26 10:10:19] [INFO] Sending KEEPALIVE to all connected servers.
-[2024-10-26 10:10:19] [DEBUG] Number of connected servers: 4
-[2024-10-26 10:10:19] [DEBUG] Time since last KEEPALIVE for server Instr_2: 119.000000
-[2024-10-26 10:10:19] [DEBUG] Attempting to send KEEPALIVE to server Instr_2
-[2024-10-26 10:10:19] [ERROR] send() failed with errno: Bad file descriptor
-[2024-10-26 10:10:19] [DEBUG] Time since last KEEPALIVE for server Instr_3: 119.000000
-[2024-10-26 10:10:19] [DEBUG] Attempting to send KEEPALIVE to server Instr_3
-[2024-10-26 10:10:19] [ERROR] send() failed with errno: Bad file descriptor
-[2024-10-26 10:10:19] [DEBUG] Time since last KEEPALIVE for server A5_3: 119.000000
-[2024-10-26 10:10:19] [DEBUG] Attempting to send KEEPALIVE to server A5_3
-[2024-10-26 10:10:19] [INFO] Sent KEEPALIVE to server A5_3 with 0 messages.
-[2024-10-26 10:10:19] [DEBUG] Time since last KEEPALIVE for server Instr_1: 44.000000
-[2024-10-26 10:11:02] [INFO] Received command: KEEPALIVE,0
-[2024-10-26 10:11:02] [ERROR] Sent ERROR response.
-[2024-10-26 10:11:19] [INFO] Sending KEEPALIVE to all connected servers.
-[2024-10-26 10:11:19] [DEBUG] Number of connected servers: 4
-[2024-10-26 10:11:19] [DEBUG] Time since last KEEPALIVE for server Instr_2: 179.000000
-[2024-10-26 10:11:19] [WARNING] Server Instr_2 has been inactive for too long. Closing connection.
-[2024-10-26 10:11:19] [DEBUG] Time since last KEEPALIVE for server Instr_3: 179.000000
-[2024-10-26 10:11:19] [WARNING] Server Instr_3 has been inactive for too long. Closing connection.
-[2024-10-26 10:11:19] [DEBUG] Time since last KEEPALIVE for server A5_3: 60.000000
-[2024-10-26 10:11:19] [DEBUG] Attempting to send KEEPALIVE to server A5_3
-[2024-10-26 10:11:19] [INFO] Sent KEEPALIVE to server A5_3 with 0 messages.
-[2024-10-26 10:11:19] [DEBUG] Time since last KEEPALIVE for server Instr_1: 104.000000
-[2024-10-26 10:11:19] [DEBUG] Attempting to send KEEPALIVE to server Instr_1
-[2024-10-26 10:11:19] [ERROR] send() failed with errno: Bad file descriptor
-[2024-10-26 10:12:02] [INFO] Received command: STATUSREQ
-[2024-10-26 10:12:02] [ERROR] Sent ERROR response.
+[2024-10-28 17:20:31] [INFO] Sent HELO to server at 130.208.246.249:5002
+[2024-10-28 17:20:31] [INFO] Received command: HELO,Instr_2
+[2024-10-28 17:20:31] [INFO] Sent SERVERS response: SERVERS,A5_18,157.97.14.186,4001;
+[2024-10-28 17:20:31] [INFO] Received command: SERVERS,Instr_2,130.208.246.249,5002;A5_22,130.208.246.249,4022;Instr_1,130.208.246.249,5001;A5_9,130.208.246.249,4009;A5_34,130.208.246.249,4034;A5_100,130.208.246.249,4100;Instr_3,130.208.246.249,5003;A5_300,130.208.246.249,4300;A5_18,157.97.14.186,-1;A5_69,130.208.246.249,4069;A5_42,130.208.246.249,4042;A5_3,130.208.246.249,4003;
+[2024-10-28 17:20:31] [INFO] Sent HELO to server at 130.208.246.249:5002
+[2024-10-28 17:20:31] [INFO] Connected to new server Instr_2 at 130.208.246.249:5002
+[2024-10-28 17:20:31] [INFO] Sent HELO to server at 130.208.246.249:4022
+[2024-10-28 17:20:31] [INFO] Connected to new server A5_22 at 130.208.246.249:4022
+[2024-10-28 17:20:31] [INFO] Sent HELO to server at 130.208.246.249:5001
+[2024-10-28 17:20:31] [INFO] Connected to new server Instr_1 at 130.208.246.249:5001
+[2024-10-28 17:21:31] [INFO] Sending KEEPALIVE to all connected servers.
+[2024-10-28 17:21:31] [DEBUG] Number of connected servers: 3
+[2024-10-28 17:21:31] [DEBUG] Time since last KEEPALIVE for server Instr_2: 60.000000
+[2024-10-28 17:21:31] [DEBUG] Attempting to send KEEPALIVE to server Instr_2
+[2024-10-28 17:21:31] [INFO] Sent KEEPALIVE to server Instr_2 with 0 messages.
+[2024-10-28 17:21:31] [DEBUG] Time since last KEEPALIVE for server A5_22: 60.000000
+[2024-10-28 17:21:31] [DEBUG] Attempting to send KEEPALIVE to server A5_22
+[2024-10-28 17:21:31] [INFO] Sent KEEPALIVE to server A5_22 with 0 messages.
+[2024-10-28 17:21:31] [DEBUG] Time since last KEEPALIVE for server Instr_1: 60.000000
+[2024-10-28 17:21:31] [DEBUG] Attempting to send KEEPALIVE to server Instr_1
+[2024-10-28 17:21:31] [INFO] Sent KEEPALIVE to server Instr_1 with 0 messages.
+[2024-10-28 17:21:38] [ERROR] Failed to connect to server: A5_9
+[2024-10-28 17:21:38] [INFO] Sent HELO to server at 130.208.246.249:4034
+[2024-10-28 17:21:38] [INFO] Connected to new server A5_34 at 130.208.246.249:4034
+[2024-10-28 17:21:38] [INFO] Sent HELO to server at 130.208.246.249:4100
+[2024-10-28 17:21:38] [INFO] Connected to new server A5_100 at 130.208.246.249:4100
+[2024-10-28 17:21:38] [INFO] Sent HELO to server at 130.208.246.249:5003
+[2024-10-28 17:21:38] [INFO] Connected to new server Instr_3 at 130.208.246.249:5003
+[2024-10-28 17:21:38] [INFO] Sent HELO to server at 130.208.246.249:4300
+[2024-10-28 17:21:38] [INFO] Connected to new server A5_300 at 130.208.246.249:4300
+[2024-10-28 17:21:38] [ERROR] Failed to connect to server: A5_18
+[2024-10-28 17:21:38] [INFO] Sent HELO to server at 130.208.246.249:4069
+[2024-10-28 17:21:38] [INFO] Connected to new server A5_69 at 130.208.246.249:4069
+[2024-10-28 17:21:38] [ERROR] Failed to connect to server: A5_42
+[2024-10-28 17:21:38] [INFO] Sent HELO to server at 130.208.246.249:4003
+[2024-10-28 17:21:38] [INFO] Connected to new server A5_3 at 130.208.246.249:4003
+[2024-10-28 17:21:38] [ERROR] Invalid server info format in SERVERS response: 
+[2024-10-28 17:21:38] [INFO] Processed SERVERS command.
+[2024-10-28 17:21:38] [INFO] New connection accepted from 127.0.0.1:59195
+[2024-10-28 17:21:38] [INFO] Received command: KEEPALIVE,6
+[2024-10-28 17:21:38] [ERROR] Sent ERROR response.
+[2024-10-28 17:21:38] [INFO] Received command: HELO,Instr_2
+[2024-10-28 17:29:15] [INFO] Sent HELO to server at 130.208.246.249:5002
+[2024-10-28 17:29:15] [INFO] Received command: HELO,Instr_2
+[2024-10-28 17:29:15] [INFO] Sent SERVERS response: SERVERS,A5_18,157.97.14.186,4001;
+[2024-10-28 17:29:15] [INFO] Received command: SERVERS,Instr_2,130.208.246.249,5002;A5_22,130.208.246.249,4022;Instr_1,130.208.246.249,5001;A5_45,130.208.246.249,4045;A5_34,130.208.246.249,4034;A5_100,130.208.246.249,4100;Instr_3,130.208.246.249,5003;A5_75,193.69.99.239,4075;A5_69,130.208.246.249,4069;A5_18,157.97.14.186,-1;A5_3,130.208.246.249,4003;
+[2024-10-28 17:29:15] [INFO] Sent HELO to server at 130.208.246.249:5002
+[2024-10-28 17:29:15] [INFO] Connected to new server Instr_2 at 130.208.246.249:5002
+[2024-10-28 17:29:15] [INFO] Sent HELO to server at 130.208.246.249:4022
+[2024-10-28 17:29:15] [INFO] Connected to new server A5_22 at 130.208.246.249:4022
+[2024-10-28 17:29:15] [INFO] Sent HELO to server at 130.208.246.249:5001
+[2024-10-28 17:29:15] [INFO] Connected to new server Instr_1 at 130.208.246.249:5001
+[2024-10-28 17:29:15] [INFO] Sent HELO to server at 130.208.246.249:4045
+[2024-10-28 17:29:15] [INFO] Connected to new server A5_45 at 130.208.246.249:4045
+[2024-10-28 17:29:15] [INFO] Sent HELO to server at 130.208.246.249:4034
+[2024-10-28 17:29:15] [INFO] Connected to new server A5_34 at 130.208.246.249:4034
+[2024-10-28 17:29:15] [INFO] Sent HELO to server at 130.208.246.249:4100
+[2024-10-28 17:29:15] [INFO] Connected to new server A5_100 at 130.208.246.249:4100
+[2024-10-28 17:29:15] [INFO] Sent HELO to server at 130.208.246.249:5003
+[2024-10-28 17:29:15] [INFO] Connected to new server Instr_3 at 130.208.246.249:5003
+[2024-10-28 17:30:15] [INFO] Sending KEEPALIVE to all connected servers.
+[2024-10-28 17:30:15] [DEBUG] Number of connected servers: 7
+[2024-10-28 17:30:15] [DEBUG] Time since last KEEPALIVE for server Instr_2: 60.000000
+[2024-10-28 17:30:15] [DEBUG] Attempting to send KEEPALIVE to server Instr_2
+[2024-10-28 17:30:15] [INFO] Sent KEEPALIVE to server Instr_2 with 0 messages.
+[2024-10-28 17:30:15] [DEBUG] Time since last KEEPALIVE for server A5_22: 60.000000
+[2024-10-28 17:30:15] [DEBUG] Attempting to send KEEPALIVE to server A5_22
+[2024-10-28 17:30:15] [INFO] Sent KEEPALIVE to server A5_22 with 0 messages.
+[2024-10-28 17:30:15] [DEBUG] Time since last KEEPALIVE for server Instr_1: 60.000000
+[2024-10-28 17:30:15] [DEBUG] Attempting to send KEEPALIVE to server Instr_1
+[2024-10-28 17:30:15] [INFO] Sent KEEPALIVE to server Instr_1 with 0 messages.
+[2024-10-28 17:30:15] [DEBUG] Time since last KEEPALIVE for server A5_45: 60.000000
+[2024-10-28 17:30:15] [DEBUG] Attempting to send KEEPALIVE to server A5_45
+[2024-10-28 17:30:15] [INFO] Sent KEEPALIVE to server A5_45 with 0 messages.
+[2024-10-28 17:30:15] [DEBUG] Time since last KEEPALIVE for server A5_34: 60.000000
+[2024-10-28 17:30:15] [DEBUG] Attempting to send KEEPALIVE to server A5_34
+[2024-10-28 17:39:19] [INFO] Sent HELO to server at 130.208.246.249:5002
+[2024-10-28 17:39:19] [INFO] Received command: HELO,Instr_2
+[2024-10-28 17:39:19] [INFO] Sent SERVERS response: SERVERS,A5_18,157.97.14.186,4001;
+[2024-10-28 17:39:19] [INFO] Received command: SERVERS,Instr_2,130.208.246.249,5002;A5_22,130.208.246.249,4022;Instr_1,130.208.246.249,5001;A5_100,130.208.246.249,4100;A5_34,130.208.246.249,4034;A5_49,130.208.246.249,-1;Instr_3,130.208.246.249,5003;A5_75,193.69.99.239,4075;A5_18,157.97.14.186,-1;A5_3,130.208.246.249,4003;
+[2024-10-28 17:39:19] [INFO] Sent HELO to server at 130.208.246.249:5002
+[2024-10-28 17:39:19] [INFO] Connected to new server Instr_2 at 130.208.246.249:5002
+[2024-10-28 17:39:19] [INFO] Sent HELO to server at 130.208.246.249:4022
+[2024-10-28 17:39:19] [INFO] Connected to new server A5_22 at 130.208.246.249:4022
+[2024-10-28 17:39:19] [INFO] Sent HELO to server at 130.208.246.249:5001
+[2024-10-28 17:39:19] [INFO] Connected to new server Instr_1 at 130.208.246.249:5001
+[2024-10-28 17:39:19] [INFO] Sent HELO to server at 130.208.246.249:4100
+[2024-10-28 17:39:19] [INFO] Connected to new server A5_100 at 130.208.246.249:4100
+[2024-10-28 17:39:19] [INFO] Sent HELO to server at 130.208.246.249:4034
+[2024-10-28 17:39:19] [INFO] Connected to new server A5_34 at 130.208.246.249:4034
+[2024-10-28 17:40:19] [INFO] Sending KEEPALIVE to all connected servers.
+[2024-10-28 17:40:19] [DEBUG] Number of connected servers: 5
+[2024-10-28 17:40:19] [DEBUG] Time since last KEEPALIVE for server Instr_2: 60.000000
+[2024-10-28 17:40:19] [DEBUG] Attempting to send KEEPALIVE to server Instr_2
+[2024-10-28 17:40:19] [INFO] Sent KEEPALIVE to server Instr_2 with 0 messages.
+[2024-10-28 17:40:19] [DEBUG] Time since last KEEPALIVE for server A5_22: 60.000000
+[2024-10-28 17:40:19] [DEBUG] Attempting to send KEEPALIVE to server A5_22
+[2024-10-28 17:40:19] [INFO] Sent KEEPALIVE to server A5_22 with 0 messages.
+[2024-10-28 17:40:19] [DEBUG] Time since last KEEPALIVE for server Instr_1: 60.000000
+[2024-10-28 17:40:19] [DEBUG] Attempting to send KEEPALIVE to server Instr_1
+[2024-10-28 17:40:19] [INFO] Sent KEEPALIVE to server Instr_1 with 0 messages.
+[2024-10-28 17:40:19] [DEBUG] Time since last KEEPALIVE for server A5_100: 60.000000
+[2024-10-28 17:40:19] [DEBUG] Attempting to send KEEPALIVE to server A5_100
+[2024-10-28 17:40:19] [INFO] Sent KEEPALIVE to server A5_100 with 0 messages.
+[2024-10-28 17:40:19] [DEBUG] Time since last KEEPALIVE for server A5_34: 60.000000
+[2024-10-28 17:40:19] [DEBUG] Attempting to send KEEPALIVE to server A5_34
+[2024-10-28 17:40:19] [INFO] Sent KEEPALIVE to server A5_34 with 0 messages.
+[2024-10-28 17:40:34] [ERROR] Failed to connect to server: A5_49
+[2024-10-28 17:40:34] [INFO] Sent HELO to server at 130.208.246.249:5003
+[2024-10-28 17:40:34] [INFO] Connected to new server Instr_3 at 130.208.246.249:5003
+[2024-10-28 17:41:19] [INFO] Sending KEEPALIVE to all connected servers.
+[2024-10-28 17:41:19] [DEBUG] Number of connected servers: 6
+[2024-10-28 17:41:19] [DEBUG] Time since last KEEPALIVE for server Instr_2: 60.000000
+[2024-10-28 17:41:19] [DEBUG] Attempting to send KEEPALIVE to server Instr_2
+-----[2024-10-28 17:45:19] [INFO] Sent HELO to server at 130.208.246.249:5002
+[2024-10-28 17:45:19] [INFO] Received command: HELO,Instr_2
+[2024-10-28 17:45:20] [INFO] Sent SERVERS response: SERVERS,A5_18,157.97.14.186,4001;
+[2024-10-28 17:45:20] [INFO] Received command: SERVERS,Instr_2,130.208.246.249,5002;A5_22,130.208.246.249,4022;Instr_1,130.208.246.249,5001;A5_100,130.208.246.249,4100;A5_28,130.208.246.249,4128;A5_34,130.208.246.249,4034;Instr_3,130.208.246.249,5003;A5_75,193.69.99.239,4075;A5_18,157.97.14.186,-1;A5_3,130.208.246.249,4003;
+[2024-10-28 17:45:20] [INFO] Sent HELO to server at 130.208.246.249:5002
+[2024-10-28 17:45:20] [INFO] Connected to new server Instr_2 at 130.208.246.249:5002
+[2024-10-28 17:45:20] [INFO] Sent HELO to server at 130.208.246.249:4022
+[2024-10-28 17:45:20] [INFO] Connected to new server A5_22 at 130.208.246.249:4022
+[2024-10-28 17:45:20] [INFO] Sent HELO to server at 130.208.246.249:5001
+[2024-10-28 17:45:20] [INFO] Connected to new server Instr_1 at 130.208.246.249:5001
+[2024-10-28 17:45:20] [INFO] Sent HELO to server at 130.208.246.249:4100
+[2024-10-28 17:45:20] [INFO] Connected to new server A5_100 at 130.208.246.249:4100
+[2024-10-28 17:45:20] [INFO] Sent HELO to server at 130.208.246.249:4128
+[2024-10-28 17:45:20] [INFO] Connected to new server A5_28 at 130.208.246.249:4128
+[2024-10-28 17:45:20] [INFO] Sent HELO to server at 130.208.246.249:4034
+[2024-10-28 17:45:20] [INFO] Connected to new server A5_34 at 130.208.246.249:4034
+[2024-10-28 17:45:20] [INFO] Sent HELO to server at 130.208.246.249:5003
+[2024-10-28 17:45:20] [INFO] Connected to new server Instr_3 at 130.208.246.249:5003
+[2024-10-28 17:46:19] [INFO] Sending KEEPALIVE to all connected servers.
+[2024-10-28 17:46:19] [DEBUG] Number of connected servers: 7
+[2024-10-28 17:46:19] [DEBUG] Time since last KEEPALIVE for server Instr_2: 59.000000
+[2024-10-28 17:46:19] [DEBUG] Time since last KEEPALIVE for server A5_22: 59.000000
+[2024-10-28 17:46:19] [DEBUG] Time since last KEEPALIVE for server Instr_1: 59.000000
+[2024-10-28 17:46:19] [DEBUG] Time since last KEEPALIVE for server A5_100: 59.000000
+[2024-10-28 17:46:19] [DEBUG] Time since last KEEPALIVE for server A5_28: 59.000000
+[2024-10-28 17:46:19] [DEBUG] Time since last KEEPALIVE for server A5_34: 59.000000
+[2024-10-28 17:46:19] [DEBUG] Time since last KEEPALIVE for server Instr_3: 59.000000
+[2024-10-28 17:46:35] [ERROR] Failed to connect to server: A5_75
+[2024-10-28 17:46:35] [ERROR] Failed to connect to server: A5_18
+[2024-10-28 17:46:35] [INFO] Sent HELO to server at 130.208.246.249:4003
+[2024-10-28 17:46:35] [INFO] Connected to new server A5_3 at 130.208.246.249:4003
+[2024-10-28 17:46:35] [ERROR] Invalid server info format in SERVERS response: 
+[2024-10-28 17:46:35] [INFO] Processed SERVERS command.
+[2024-10-28 17:46:35] [INFO] Received command: KEEPALIVE,0
+[2024-10-28 17:46:35] [ERROR] Sent ERROR response.
+[2024-10-28 17:46:35] [INFO] Received command: HELO,Instr_2
+[2024-10-28 17:46:35] [INFO] Sent SERVERS response: SERVERS,A5_18,157.97.14.186,4001;Instr_2,130.208.246.249,5002;A5_22,130.208.246.249,4022;Instr_1,130.208.246.249,5001;A5_100,130.208.246.249,4100;A5_28,130.208.246.249,4128;A5_34,130.208.246.249,4034;Instr_3,130.208.246.249,5003;A5_3,130.208.246.249,4003;
+[2024-10-28 17:46:35] [INFO] Received command: HELO,A5_22SERVERS,A5_22,130.208.246.249,4022;,130.208.240.14,58011;A5_10,10.100.41.113,4091;A5_100,130.208.246.249,4100;A5_12,130.208.246.249,4001;A5_14,130.208.246.249,4014;A5_19,130.208.246.249,4019;A5_2,130.208.246.249,4002;A5_26,130.208.246.249,4026;A5_28,157.157.68.15,4028;A5_3,130.208.246.249,4003;A5_300,130.208.246.249,4300;A5_34,130.208.246.249,4034;A5_35,130.208.246.249,4035;A5_350,130.208.246.249,4350;A5_36,130.208.246.249,4034;A5_38,130.208.240.13,59704;A5_40,130.208.246.249,0;A5_400,130.208.246.249,4400;A5_42,130.208.246.249,4042;A5_420,130.208.246.249,4008;A5_45,130.208.246.249,4045;A5_47,130.208.246.249,4047;A5_5,130.208.246.249,4005;A5_53,130.208.246.249,4053;A5_59,130.208.246.249,4069;A5_6,130.208.240.14,4006;A5_60,130.208.246.249,58462;A5_69,130.208.246.249,4069;A5_70,130.208.246.249,4070;A5_72,130.208.246.249,4072;A5_75,193.69.99.239,4075;A5_8,130.208.246.249,4009;A5_89,130.208.246.249,55218;A5_9,130.208.246.249,4009;Instr_1,130.208.246.249,5001;Instr_2,130.208.246.249,5002;Instr_3,130.208.246.249,5003;NUMBER,130.208.246.249,5005;ORACLE,130.208.246.249,5004;
+[2024-10-28 17:46:35] [INFO] Sent SERVERS response: SERVERS,A5_18,157.97.14.186,4001;Instr_2,130.208.246.249,5002;A5_22,130.208.246.249,4022;Instr_1,130.208.246.249,5001;A5_100,130.208.246.249,4100;A5_28,130.208.246.249,4128;A5_34,130.208.246.249,4034;Instr_3,130.208.246.249,5003;A5_3,130.208.246.249,4003;
+[2024-10-28 17:46:35] [INFO] Received command: HELO,Instr_1SERVERS,Instr_1,130.208.246.249,5001;Instr_2,130.208.246.249,5002;A5_3,130.208.246.249,4003;NUMBER,130.208.246.249,5005;A5_22,130.208.246.249,4022;A5_2,130.208.246.249,4002;A5_100,130.208.246.249,4100;A5_28,130.208.246.249,4128;A5_34,130.208.246.249,4034;A5_75,193.69.99.239,4075;A5_18,157.97.14.186,-1;KEEPALIVE,0
+[2024-10-28 17:46:35] [INFO] Sent SERVERS response: SERVERS,A5_18,157.97.14.186,4001;Instr_2,130.208.246.249,5002;A5_22,130.208.246.249,4022;Instr_1,130.208.246.249,5001;A5_100,130.208.246.249,4100;A5_28,130.208.246.249,4128;A5_34,130.208.246.249,4034;Instr_3,130.208.246.249,5003;A5_3,130.208.246.249,4003;
+[2024-10-28 17:46:35] [INFO] Received command: Server is currently full, try again later! :)
+[2024-10-28 17:46:35] [ERROR] Sent ERROR response.
+[2024-10-28 17:46:35] [INFO] Received command: HELO,A5_28
+[2024-10-28 17:46:36] [INFO] Sent SERVERS response: SERVERS,A5_18,157.97.14.186,4001;Instr_2,130.208.246.249,5002;A5_22,130.208.246.249,4022;Instr_1,130.208.246.249,5001;A5_100,130.208.246.249,4100;A5_28,130.208.246.249,4128;A5_34,130.208.246.249,4034;Instr_3,130.208.246.249,5003;A5_3,130.208.246.249,4003;
+[2024-10-28 17:46:36] [INFO] Received command: HELO,A5_34SERVERS,A5_34,130.208.246.249,4034;Instr_1,130.208.246.249,5001;Instr_2,130.208.246.249,5002;Instr_3,130.208.246.249,5003;A5_18,157.97.14.186,-1;GETMSGS,A5_34SENDMSG,A5_18,A5_34,Welcome to the botnet A5_18 from A5_34!
+[2024-10-28 17:46:36] [INFO] Sent SERVERS response: SERVERS,A5_18,157.97.14.186,4001;Instr_2,130.208.246.249,5002;A5_22,130.208.246.249,4022;Instr_1,130.208.246.249,5001;A5_100,130.208.246.249,4100;A5_28,130.208.246.249,4128;A5_34,130.208.246.249,4034;Instr_3,130.208.246.249,5003;A5_3,130.208.246.249,4003;
+[2024-10-28 17:46:36] [INFO] Received command: HELO,Instr_3SERVERS,Instr_3,130.208.246.249,5003;A5_100,130.208.246.249,4100;Instr_2,130.208.246.249,5002;A5_28,130.208.246.249,4128;ORACLE,130.208.246.249,5004;A5_34,130.208.246.249,4034;A5_22,130.208.246.249,4022;A5_72,130.208.246.249,4072;A5_14,130.208.246.249,-1;A5_3,130.208.246.249,4003;A5_18,157.97.14.186,-1;A5_75,193.69.99.239,4075;KEEPALIVE,0
+[2024-10-28 17:46:36] [INFO] Sent SERVERS response: SERVERS,A5_18,157.97.14.186,4001;Instr_2,130.208.246.249,5002;A5_22,130.208.246.249,4022;Instr_1,130.208.246.249,5001;A5_100,130.208.246.249,4100;A5_28,130.208.246.249,4128;A5_34,130.208.246.249,4034;Instr_3,130.208.246.249,5003;A5_3,130.208.246.249,4003;
+[2024-10-28 17:46:36] [INFO] New connection accepted from 127.0.0.1:60054
+[2024-10-28 17:46:36] [INFO] Received command: ERROR,Instr_2,A5_18,Unknown/unrecognised command
+[2024-10-28 17:46:36] [ERROR] Sent ERROR response.
+[2024-10-28 17:46:36] [INFO] Received command: ERROR,Instr_2,A5_18,Unknown/unrecognised command
+[2024-10-28 17:46:36] [ERROR] Sent ERROR response.
+[2024-10-28 17:46:36] [INFO] Received command: ERROR,Instr_2,A5_18,Unknown/unrecognised command
+[2024-10-28 17:46:36] [ERROR] Sent ERROR response.
+[2024-10-28 17:46:50] [INFO] Received command: KEEPALIVE,0
+[2024-10-28 17:46:50] [ERROR] Sent ERROR response.
+[2024-10-28 17:46:50] [INFO] Received command: HELO,A5_34GETMSGS,A5_34
+[2024-10-28 17:46:50] [INFO] Sent SERVERS response: SERVERS,A5_18,157.97.14.186,4001;Instr_2,130.208.246.249,5002;A5_22,130.208.246.249,4022;Instr_1,130.208.246.249,5001;A5_100,130.208.246.249,4100;A5_28,130.208.246.249,4128;A5_34,130.208.246.249,4034;Instr_3,130.208.246.249,5003;A5_3,130.208.246.249,4003;
+[2024-10-28 17:47:06] [INFO] Received command: KEEPALIVE,0
+[2024-10-28 17:47:06] [ERROR] Sent ERROR response.
+[2024-10-28 17:47:06] [INFO] Received command: KEEPALIVE,0
+[2024-10-28 17:47:06] [ERROR] Sent ERROR response.
+[2024-10-28 17:47:06] [INFO] Received command: ERROR,Instr_1,A5_18,Unknown/unrecognised command
+[2024-10-28 17:47:06] [ERROR] Sent ERROR response.
+[2024-10-28 17:47:06] [INFO] Received command: ERROR,Instr_3,A5_18,Unknown/unrecognised command
+[2024-10-28 17:47:06] [ERROR] Sent ERROR response.
+[2024-10-28 17:47:06] [INFO] Received command: ERROR,Instr_1,A5_18,Unknown/unrecognised command
+[2024-10-28 17:47:06] [ERROR] Sent ERROR response.
+[2024-10-28 17:47:06] [INFO] Received command: ERROR,Instr_3,A5_18,Unknown/unrecognised command
+[2024-10-28 17:47:06] [ERROR] Sent ERROR response.
+[2024-10-28 17:47:06] [INFO] Received command: ERROR,Instr_3,A5_18,Unknown/unrecognised command
+[2024-10-28 17:47:06] [ERROR] Sent ERROR response.
+[2024-10-28 17:47:06] [INFO] Received command: ERROR,Instr_1,A5_18,Unknown/unrecognised command
+[2024-10-28 17:47:06] [ERROR] Sent ERROR response.
+[2024-10-28 17:47:19] [INFO] Sending KEEPALIVE to all connected servers.
+[2024-10-28 17:47:19] [DEBUG] Number of connected servers: 8
+[2024-10-28 17:47:19] [DEBUG] Time since last KEEPALIVE for server Instr_2: 119.000000
+[2024-10-28 17:47:19] [DEBUG] Attempting to send KEEPALIVE to server Instr_2
+[2024-10-28 17:47:19] [ERROR] send() failed with errno: Bad file descriptor
+[2024-10-28 17:47:19] [DEBUG] Time since last KEEPALIVE for server A5_22: 119.000000
+[2024-10-28 17:47:19] [DEBUG] Attempting to send KEEPALIVE to server A5_22
+[2024-10-28 17:47:19] [INFO] Sent KEEPALIVE to server A5_22 with 0 messages.
+[2024-10-28 17:47:19] [DEBUG] Time since last KEEPALIVE for server Instr_1: 119.000000
+[2024-10-28 17:47:19] [DEBUG] Attempting to send KEEPALIVE to server Instr_1
+[2024-10-28 17:47:19] [ERROR] send() failed with errno: Bad file descriptor
+[2024-10-28 17:47:19] [DEBUG] Time since last KEEPALIVE for server A5_100: 119.000000
+[2024-10-28 17:47:19] [DEBUG] Attempting to send KEEPALIVE to server A5_100
+[2024-10-28 17:47:19] [ERROR] send() failed with errno: Bad file descriptor
+[2024-10-28 17:47:19] [DEBUG] Time since last KEEPALIVE for server A5_28: 119.000000
+[2024-10-28 17:47:19] [DEBUG] Attempting to send KEEPALIVE to server A5_28
+[2024-10-28 17:47:19] [INFO] Sent KEEPALIVE to server A5_28 with 0 messages.
+[2024-10-28 17:47:19] [DEBUG] Time since last KEEPALIVE for server A5_34: 119.000000
+[2024-10-28 17:47:19] [DEBUG] Attempting to send KEEPALIVE to server A5_34
+[2024-10-28 17:47:19] [INFO] Sent KEEPALIVE to server A5_34 with 0 messages.
+[2024-10-28 17:47:19] [DEBUG] Time since last KEEPALIVE for server Instr_3: 119.000000
+[2024-10-28 17:47:19] [DEBUG] Attempting to send KEEPALIVE to server Instr_3
+[2024-10-28 17:47:19] [ERROR] send() failed with errno: Bad file descriptor
+[2024-10-28 17:47:19] [DEBUG] Time since last KEEPALIVE for server A5_3: 44.000000
+[2024-10-28 17:48:19] [INFO] Sending KEEPALIVE to all connected servers.
+[2024-10-28 17:48:19] [DEBUG] Number of connected servers: 8
+[2024-10-28 17:48:19] [DEBUG] Time since last KEEPALIVE for server Instr_2: 179.000000
+[2024-10-28 17:48:19] [WARNING] Server Instr_2 has been inactive for too long. Closing connection.
+[2024-10-28 17:48:19] [DEBUG] Time since last KEEPALIVE for server A5_22: 60.000000
+[2024-10-28 17:48:19] [DEBUG] Attempting to send KEEPALIVE to server A5_22
+[2024-10-28 17:48:19] [INFO] Sent KEEPALIVE to server A5_22 with 0 messages.
+[2024-10-28 17:48:19] [DEBUG] Time since last KEEPALIVE for server Instr_1: 179.000000
+[2024-10-28 17:48:19] [WARNING] Server Instr_1 has been inactive for too long. Closing connection.
+[2024-10-28 17:48:19] [DEBUG] Time since last KEEPALIVE for server A5_100: 179.000000
+[2024-10-28 17:48:19] [WARNING] Server A5_100 has been inactive for too long. Closing connection.
+[2024-10-28 17:48:19] [DEBUG] Time since last KEEPALIVE for server A5_28: 60.000000
+[2024-10-28 17:48:19] [DEBUG] Attempting to send KEEPALIVE to server A5_28
+[2024-10-28 17:48:19] [INFO] Sent KEEPALIVE to server A5_28 with 0 messages.
+[2024-10-28 17:48:19] [DEBUG] Time since last KEEPALIVE for server A5_34: 60.000000
+[2024-10-28 17:48:19] [DEBUG] Attempting to send KEEPALIVE to server A5_34
+[2024-10-28 17:48:19] [INFO] Sent KEEPALIVE to server A5_34 with 0 messages.
+[2024-10-28 17:48:19] [DEBUG] Time since last KEEPALIVE for server Instr_3: 179.000000
+[2024-10-28 17:48:19] [WARNING] Server Instr_3 has been inactive for too long. Closing connection.
+[2024-10-28 17:48:19] [DEBUG] Time since last KEEPALIVE for server A5_3: 104.000000
+[2024-10-28 17:48:19] [DEBUG] Attempting to send KEEPALIVE to server A5_3
+[2024-10-28 17:48:19] [ERROR] send() failed with errno: Bad file descriptor
+[2024-10-28 17:48:20] [INFO] Received command: KEEPALIVE,0
+[2024-10-28 17:48:20] [ERROR] Sent ERROR response.
+[2024-10-28 17:48:20] [INFO] Received command: HELO,A5_34GETMSGS,A5_34
+[2024-10-28 17:48:20] [INFO] Sent SERVERS response: SERVERS,A5_18,157.97.14.186,4001;A5_22,130.208.246.249,4022;A5_28,130.208.246.249,4128;A5_34,130.208.246.249,4034;A5_3,130.208.246.249,4003;
+[2024-10-28 17:49:19] [INFO] Sending KEEPALIVE to all connected servers.
+[2024-10-28 17:49:19] [DEBUG] Number of connected servers: 4
+[2024-10-28 17:49:19] [DEBUG] Time since last KEEPALIVE for server A5_22: 60.000000
+[2024-10-28 17:49:19] [DEBUG] Attempting to send KEEPALIVE to server A5_22
+[2024-10-28 17:49:19] [ERROR] send() failed with errno: Bad file descriptor
+[2024-10-28 17:49:19] [DEBUG] Time since last KEEPALIVE for server A5_28: 60.000000
+[2024-10-28 17:49:19] [DEBUG] Attempting to send KEEPALIVE to server A5_28
+[2024-10-28 17:49:19] [INFO] Sent KEEPALIVE to server A5_28 with 0 messages.
+[2024-10-28 17:49:19] [DEBUG] Time since last KEEPALIVE for server A5_34: 60.000000
+[2024-10-28 17:49:19] [DEBUG] Attempting to send KEEPALIVE to server A5_34
+[2024-10-28 17:49:19] [INFO] Sent KEEPALIVE to server A5_34 with 0 messages.
+[2024-10-28 17:49:19] [DEBUG] Time since last KEEPALIVE for server A5_3: 164.000000
+[2024-10-28 17:49:19] [WARNING] Server A5_3 has been inactive for too long. Closing connection.
+[2024-10-28 17:49:50] [INFO] Received command: KEEPALIVE,0
+[2024-10-28 17:49:50] [ERROR] Sent ERROR response.
+[2024-10-28 17:49:50] [INFO] Received command: HELO,A5_34GETMSGS,A5_34
+[2024-10-28 17:49:50] [INFO] Sent SERVERS response: SERVERS,A5_18,157.97.14.186,4001;A5_22,130.208.246.249,4022;A5_28,130.208.246.249,4128;A5_34,130.208.246.249,4034;
+[2024-10-28 17:50:19] [INFO] Sending KEEPALIVE to all connected servers.
+[2024-10-28 17:50:19] [DEBUG] Number of connected servers: 3
+[2024-10-28 17:50:19] [DEBUG] Time since last KEEPALIVE for server A5_22: 120.000000
+[2024-10-28 17:50:19] [DEBUG] Attempting to send KEEPALIVE to server A5_22
+[2024-10-28 17:50:19] [ERROR] send() failed with errno: Bad file descriptor
+[2024-10-28 17:50:19] [DEBUG] Time since last KEEPALIVE for server A5_28: 60.000000
+[2024-10-28 17:50:19] [DEBUG] Attempting to send KEEPALIVE to server A5_28
+[2024-10-28 17:50:19] [INFO] Sent KEEPALIVE to server A5_28 with 0 messages.
+[2024-10-28 17:50:19] [DEBUG] Time since last KEEPALIVE for server A5_34: 60.000000
+[2024-10-28 17:50:19] [DEBUG] Attempting to send KEEPALIVE to server A5_34
+[2024-10-28 17:50:19] [INFO] Sent KEEPALIVE to server A5_34 with 0 messages.
+[2024-10-28 17:51:19] [INFO] Sending KEEPALIVE to all connected servers.
+[2024-10-28 17:51:19] [DEBUG] Number of connected servers: 3
+[2024-10-28 17:51:19] [DEBUG] Time since last KEEPALIVE for server A5_22: 180.000000
+[2024-10-28 17:51:19] [WARNING] Server A5_22 has been inactive for too long. Closing connection.
+[2024-10-28 17:51:19] [DEBUG] Time since last KEEPALIVE for server A5_28: 60.000000
+[2024-10-28 17:51:19] [DEBUG] Attempting to send KEEPALIVE to server A5_28
+[2024-10-28 17:51:19] [INFO] Sent KEEPALIVE to server A5_28 with 0 messages.
+[2024-10-28 17:51:19] [DEBUG] Time since last KEEPALIVE for server A5_34: 60.000000
+[2024-10-28 17:51:19] [DEBUG] Attempting to send KEEPALIVE to server A5_34
+[2024-10-28 17:51:19] [INFO] Sent KEEPALIVE to server A5_34 with 0 messages.
+[2024-10-28 17:51:20] [INFO] Received command: KEEPALIVE,0
+[2024-10-28 17:51:20] [ERROR] Sent ERROR response.
+[2024-10-28 17:51:20] [INFO] Received command: HELO,A5_34GETMSGS,A5_34
+[2024-10-28 17:51:20] [INFO] Sent SERVERS response: SERVERS,A5_18,157.97.14.186,4001;A5_28,130.208.246.249,4128;A5_34,130.208.246.249,4034;
+[2024-10-28 17:52:19] [INFO] Sending KEEPALIVE to all connected servers.
+[2024-10-28 17:52:19] [DEBUG] Number of connected servers: 2
+[2024-10-28 17:52:19] [DEBUG] Time since last KEEPALIVE for server A5_28: 60.000000
+[2024-10-28 17:52:19] [DEBUG] Attempting to send KEEPALIVE to server A5_28
+[2024-10-28 17:52:19] [INFO] Sent KEEPALIVE to server A5_28 with 0 messages.
+[2024-10-28 17:52:19] [DEBUG] Time since last KEEPALIVE for server A5_34: 60.000000
+[2024-10-28 17:52:19] [DEBUG] Attempting to send KEEPALIVE to server A5_34
+[2024-10-28 17:52:19] [INFO] Sent KEEPALIVE to server A5_34 with 0 messages.
+[2024-10-28 17:52:50] [INFO] Received command: KEEPALIVE,0
+[2024-10-28 17:52:50] [ERROR] Sent ERROR response.
+[2024-10-28 17:52:50] [INFO] Received command: HELO,A5_34GETMSGS,A5_34
+[2024-10-28 17:52:51] [INFO] Sent SERVERS response: SERVERS,A5_18,157.97.14.186,4001;A5_28,130.208.246.249,4128;A5_34,130.208.246.249,4034;
+[2024-10-28 17:53:19] [INFO] Sending KEEPALIVE to all connected servers.
+[2024-10-28 17:53:19] [DEBUG] Number of connected servers: 2
+[2024-10-28 17:53:19] [DEBUG] Time since last KEEPALIVE for server A5_28: 60.000000
+[2024-10-28 17:53:19] [DEBUG] Attempting to send KEEPALIVE to server A5_28
+[2024-10-28 17:53:19] [INFO] Sent KEEPALIVE to server A5_28 with 0 messages.
+[2024-10-28 17:53:19] [DEBUG] Time since last KEEPALIVE for server A5_34: 60.000000
+[2024-10-28 17:53:19] [DEBUG] Attempting to send KEEPALIVE to server A5_34
+[2024-10-28 17:53:19] [INFO] Sent KEEPALIVE to server A5_34 with 0 messages.
+[2024-10-28 17:54:19] [INFO] Sending KEEPALIVE to all connected servers.
+[2024-10-28 17:54:19] [DEBUG] Number of connected servers: 2
+[2024-10-28 17:54:19] [DEBUG] Time since last KEEPALIVE for server A5_28: 60.000000
+[2024-10-28 17:54:19] [DEBUG] Attempting to send KEEPALIVE to server A5_28
+[2024-10-28 17:54:19] [INFO] Sent KEEPALIVE to server A5_28 with 0 messages.
+[2024-10-28 17:54:19] [DEBUG] Time since last KEEPALIVE for server A5_34: 60.000000
+[2024-10-28 17:54:19] [DEBUG] Attempting to send KEEPALIVE to server A5_34
+[2024-10-28 17:54:19] [INFO] Sent KEEPALIVE to server A5_34 with 0 messages.
+[2024-10-28 17:54:20] [INFO] Received command: KEEPALIVE,0
+[2024-10-28 17:54:20] [ERROR] Sent ERROR response.
+[2024-10-28 17:54:20] [INFO] Received command: HELO,A5_34GETMSGS,A5_34
+[2024-10-28 17:54:20] [INFO] Sent SERVERS response: SERVERS,A5_18,157.97.14.186,4001;A5_28,130.208.246.249,4128;A5_34,130.208.246.249,4034;
+[2024-10-28 17:55:19] [INFO] Sending KEEPALIVE to all connected servers.
+[2024-10-28 17:55:19] [DEBUG] Number of connected servers: 2
+[2024-10-28 17:55:19] [DEBUG] Time since last KEEPALIVE for server A5_28: 60.000000
+[2024-10-28 17:55:19] [DEBUG] Attempting to send KEEPALIVE to server A5_28
+[2024-10-28 17:55:19] [INFO] Sent KEEPALIVE to server A5_28 with 0 messages.
+[2024-10-28 17:55:19] [DEBUG] Time since last KEEPALIVE for server A5_34: 60.000000
+[2024-10-28 17:55:19] [DEBUG] Attempting to send KEEPALIVE to server A5_34
+[2024-10-28 17:55:19] [INFO] Sent KEEPALIVE to server A5_34 with 0 messages.
+[2024-10-28 17:55:38] [INFO] Received command: LISTSERVERS
+[2024-10-28 17:55:38] [INFO] Sent LISTSERVERS response.
+[2024-10-28 17:55:50] [INFO] Received command: KEEPALIVE,0
+[2024-10-28 17:55:50] [ERROR] Sent ERROR response.
+[2024-10-28 17:55:50] [INFO] Received command: HELO,A5_34GETMSGS,A5_34
+[2024-10-28 17:55:51] [INFO] Sent SERVERS response: SERVERS,A5_18,157.97.14.186,4001;A5_28,130.208.246.249,4128;A5_34,130.208.246.249,4034;
+[2024-10-28 17:56:19] [INFO] Sending KEEPALIVE to all connected servers.
+[2024-10-28 17:56:19] [DEBUG] Number of connected servers: 2
+[2024-10-28 17:56:19] [DEBUG] Time since last KEEPALIVE for server A5_28: 60.000000
+[2024-10-28 17:56:19] [DEBUG] Attempting to send KEEPALIVE to server A5_28
+[2024-10-28 17:56:19] [ERROR] send() failed with errno: Bad file descriptor
+[2024-10-28 17:56:19] [DEBUG] Time since last KEEPALIVE for server A5_34: 60.000000
+[2024-10-28 17:56:19] [DEBUG] Attempting to send KEEPALIVE to server A5_34
+[2024-10-28 17:56:19] [INFO] Sent KEEPALIVE to server A5_34 with 0 messages.
+[2024-10-28 17:57:19] [INFO] Sending KEEPALIVE to all connected servers.
+[2024-10-28 17:57:19] [DEBUG] Number of connected servers: 2
+[2024-10-28 17:57:19] [DEBUG] Time since last KEEPALIVE for server A5_28: 120.000000
+[2024-10-28 17:57:19] [DEBUG] Attempting to send KEEPALIVE to server A5_28
+[2024-10-28 17:57:19] [ERROR] send() failed with errno: Bad file descriptor
+[2024-10-28 17:57:19] [DEBUG] Time since last KEEPALIVE for server A5_34: 60.000000
+[2024-10-28 17:57:19] [DEBUG] Attempting to send KEEPALIVE to server A5_34
+[2024-10-28 17:57:19] [INFO] Sent KEEPALIVE to server A5_34 with 0 messages.
+[2024-10-28 17:57:20] [INFO] Received command: KEEPALIVE,0
+[2024-10-28 17:57:20] [ERROR] Sent ERROR response.
+[2024-10-28 17:57:20] [INFO] Received command: HELO,A5_34GETMSGS,A5_34
+[2024-10-28 17:57:21] [INFO] Sent SERVERS response: SERVERS,A5_18,157.97.14.186,4001;A5_28,130.208.246.249,4128;A5_34,130.208.246.249,4034;
+[2024-10-28 17:58:19] [INFO] Sending KEEPALIVE to all connected servers.
+[2024-10-28 17:58:19] [DEBUG] Number of connected servers: 2
+[2024-10-28 17:58:19] [DEBUG] Time since last KEEPALIVE for server A5_28: 180.000000
+[2024-10-28 17:58:19] [WARNING] Server A5_28 has been inactive for too long. Closing connection.
+[2024-10-28 17:58:19] [DEBUG] Time since last KEEPALIVE for server A5_34: 60.000000
+[2024-10-28 17:58:19] [DEBUG] Attempting to send KEEPALIVE to server A5_34
+[2024-10-28 17:58:19] [INFO] Sent KEEPALIVE to server A5_34 with 0 messages.
+[2024-10-28 17:58:51] [INFO] Received command: KEEPALIVE,0
+[2024-10-28 17:58:51] [ERROR] Sent ERROR response.
+[2024-10-28 17:58:51] [INFO] Received command: HELO,A5_34GETMSGS,A5_34
+[2024-10-28 17:58:51] [INFO] Sent SERVERS response: SERVERS,A5_18,157.97.14.186,4001;A5_34,130.208.246.249,4034;
+[2024-10-28 17:59:19] [INFO] Sending KEEPALIVE to all connected servers.
+[2024-10-28 17:59:19] [DEBUG] Number of connected servers: 1
+[2024-10-28 17:59:19] [DEBUG] Time since last KEEPALIVE for server A5_34: 60.000000
+[2024-10-28 17:59:19] [DEBUG] Attempting to send KEEPALIVE to server A5_34
+[2024-10-28 17:59:19] [INFO] Sent KEEPALIVE to server A5_34 with 0 messages.
+[2024-10-28 18:00:19] [INFO] Sending KEEPALIVE to all connected servers.
+[2024-10-28 18:00:19] [DEBUG] Number of connected servers: 1
+[2024-10-28 18:00:19] [DEBUG] Time since last KEEPALIVE for server A5_34: 60.000000
+[2024-10-28 18:00:19] [DEBUG] Attempting to send KEEPALIVE to server A5_34
+[2024-10-28 18:00:19] [INFO] Sent KEEPALIVE to server A5_34 with 0 messages.
+[2024-10-28 18:00:21] [INFO] Received command: KEEPALIVE,0
+[2024-10-28 18:00:21] [ERROR] Sent ERROR response.
+[2024-10-28 18:00:21] [INFO] Received command: HELO,A5_34GETMSGS,A5_34
+[2024-10-28 18:00:21] [INFO] Sent SERVERS response: SERVERS,A5_18,157.97.14.186,4001;A5_34,130.208.246.249,4034;
+[2024-10-28 18:01:19] [INFO] Sending KEEPALIVE to all connected servers.
+[2024-10-28 18:01:19] [DEBUG] Number of connected servers: 1
+[2024-10-28 18:01:19] [DEBUG] Time since last KEEPALIVE for server A5_34: 60.000000
+[2024-10-28 18:01:19] [DEBUG] Attempting to send KEEPALIVE to server A5_34
+[2024-10-28 18:01:19] [INFO] Sent KEEPALIVE to server A5_34 with 0 messages.
+[2024-10-28 18:31:13] [INFO] Sending KEEPALIVE to all connected servers.
+[2024-10-28 18:31:13] [DEBUG] Number of connected servers: 1
+[2024-10-28 18:31:13] [DEBUG] Time since last KEEPALIVE for server A5_34: 1794.000000
+[2024-10-28 18:31:13] [WARNING] Server A5_34 has been inactive for too long. Closing connection.
+[2024-10-28 18:32:54] [INFO] Sending KEEPALIVE to all connected servers.
+[2024-10-28 18:32:54] [DEBUG] Number of connected servers: 0
+[2024-10-28 18:33:54] [INFO] Sending KEEPALIVE to all connected servers.
+[2024-10-28 18:33:54] [DEBUG] Number of connected servers: 0
+[2024-10-28 18:34:54] [INFO] Sending KEEPALIVE to all connected servers.
+[2024-10-28 18:34:54] [DEBUG] Number of connected servers: 0
+[2024-10-28 18:35:54] [INFO] Sending KEEPALIVE to all connected servers.
+[2024-10-28 18:35:54] [DEBUG] Number of connected servers: 0
+[2024-10-28 18:36:54] [INFO] Sending KEEPALIVE to all connected servers.
+[2024-10-28 18:36:54] [DEBUG] Number of connected servers: 0
+[2024-10-28 18:37:54] [INFO] Sending KEEPALIVE to all connected servers.
+[2024-10-28 18:37:54] [DEBUG] Number of connected servers: 0
+[2024-10-28 18:38:54] [INFO] Sending KEEPALIVE to all connected servers.
+[2024-10-28 18:38:54] [DEBUG] Number of connected servers: 0
+[2024-10-28 18:39:54] [INFO] Sending KEEPALIVE to all connected servers.
+[2024-10-28 18:39:54] [DEBUG] Number of connected servers: 0
+[2024-10-28 18:40:54] [INFO] Sending KEEPALIVE to all connected servers.
+[2024-10-28 18:40:54] [DEBUG] Number of connected servers: 0
+[2024-10-28 18:41:54] [INFO] Sending KEEPALIVE to all connected servers.
+[2024-10-28 18:41:54] [DEBUG] Number of connected servers: 0
+[2024-10-28 18:42:54] [INFO] Sending KEEPALIVE to all connected servers.
+[2024-10-28 18:42:54] [DEBUG] Number of connected servers: 0
+[2024-10-28 18:43:54] [INFO] Sending KEEPALIVE to all connected servers.
+[2024-10-28 18:43:54] [DEBUG] Number of connected servers: 0
+[2024-10-28 18:44:54] [INFO] Sending KEEPALIVE to all connected servers.
+[2024-10-28 18:44:54] [DEBUG] Number of connected servers: 0
+[2024-10-28 18:45:54] [INFO] Sending KEEPALIVE to all connected servers.
+[2024-10-28 18:45:54] [DEBUG] Number of connected servers: 0
+[2024-10-28 18:46:54] [INFO] Sending KEEPALIVE to all connected servers.
+[2024-10-28 18:46:54] [DEBUG] Number of connected servers: 0
+[2024-10-28 18:47:54] [INFO] Sending KEEPALIVE to all connected servers.
+[2024-10-28 18:47:54] [DEBUG] Number of connected servers: 0
+[2024-10-28 18:48:54] [INFO] Sending KEEPALIVE to all connected servers.
+[2024-10-28 18:48:54] [DEBUG] Number of connected servers: 0
+[2024-10-28 18:49:54] [INFO] Sending KEEPALIVE to all connected servers.
+[2024-10-28 18:49:54] [DEBUG] Number of connected servers: 0
+[2024-10-28 18:50:54] [INFO] Sending KEEPALIVE to all connected servers.
+[2024-10-28 18:50:54] [DEBUG] Number of connected servers: 0
+[2024-10-28 18:51:54] [INFO] Sending KEEPALIVE to all connected servers.
+[2024-10-28 18:51:54] [DEBUG] Number of connected servers: 0
+[2024-10-28 18:52:54] [INFO] Sending KEEPALIVE to all connected servers.
+[2024-10-28 18:52:54] [DEBUG] Number of connected servers: 0
+[2024-10-28 18:53:54] [INFO] Sending KEEPALIVE to all connected servers.
+[2024-10-28 18:53:54] [DEBUG] Number of connected servers: 0
+[2024-10-28 18:54:54] [INFO] Sending KEEPALIVE to all connected servers.
+[2024-10-28 18:54:54] [DEBUG] Number of connected servers: 0
+[2024-10-28 18:55:54] [INFO] Sending KEEPALIVE to all connected servers.
+[2024-10-28 18:55:54] [DEBUG] Number of connected servers: 0
+[2024-10-28 18:56:54] [INFO] Sending KEEPALIVE to all connected servers.
+[2024-10-28 18:56:54] [DEBUG] Number of connected servers: 0
+[2024-10-28 18:57:54] [INFO] Sending KEEPALIVE to all connected servers.
+[2024-10-28 18:57:54] [DEBUG] Number of connected servers: 0
+[2024-10-28 18:58:54] [INFO] Sending KEEPALIVE to all connected servers.
+[2024-10-28 18:58:54] [DEBUG] Number of connected servers: 0
+[2024-10-28 18:59:54] [INFO] Sending KEEPALIVE to all connected servers.
+[2024-10-28 18:59:54] [DEBUG] Number of connected servers: 0
+[2024-10-28 19:50:54] [INFO] Sent HELO to server at 130.208.246.249:5002
+[2024-10-28 19:50:54] [INFO] Received command: HELO,Instr_2
+[2024-10-28 19:50:54] [INFO] Sent SERVERS response: SERVERS,A5_18,157.97.14.186,4444;
+[2024-10-28 19:50:54] [INFO] Received command: SERVERS,Instr_2,130.208.246.249,5002;Instr_3,130.208.246.249,5003;Instr_1,130.208.246.249,5001;A5_9,130.208.246.249,4009;A5_42,130.208.246.249,4042;A5_390,157.157.85.56,-1;A5_100,130.208.246.249,4100;A5_45,130.208.246.249,4179;A5_3,130.208.246.249,4003;A5_70,130.208.246.249,4070;A5_6,46.22.104.144,4006;A5_18,157.97.14.186,-1;
+[2024-10-28 19:50:54] [INFO] Sent HELO to server at 130.208.246.249:5002
+[2024-10-28 19:50:54] [INFO] Connected to new server Instr_2 at 130.208.246.249:5002
+[2024-10-28 19:50:54] [INFO] Sent HELO to server at 130.208.246.249:5003
+[2024-10-28 19:50:54] [INFO] Connected to new server Instr_3 at 130.208.246.249:5003
+[2024-10-28 19:50:54] [INFO] Sent HELO to server at 130.208.246.249:5001
+[2024-10-28 19:50:54] [INFO] Connected to new server Instr_1 at 130.208.246.249:5001
+[2024-10-28 19:50:54] [INFO] Sent HELO to server at 130.208.246.249:4009
+[2024-10-28 19:50:54] [INFO] Connected to new server A5_9 at 130.208.246.249:4009
+[2024-10-28 19:50:54] [INFO] Sent HELO to server at 130.208.246.249:4042
+[2024-10-28 19:50:54] [INFO] Connected to new server A5_42 at 130.208.246.249:4042
+[2024-10-28 19:51:54] [INFO] Sending KEEPALIVE to all connected servers.
+[2024-10-28 19:51:54] [DEBUG] Number of connected servers: 5
+[2024-10-28 19:51:54] [DEBUG] Time since last KEEPALIVE for server Instr_2: 60.000000
+[2024-10-28 19:51:54] [DEBUG] Attempting to send KEEPALIVE to server Instr_2 with socket 5
+[2024-10-28 19:51:54] [INFO] Sent KEEPALIVE to server Instr_2 with 0 messages.
+[2024-10-28 19:51:54] [DEBUG] Time since last KEEPALIVE for server Instr_3: 60.000000
+[2024-10-28 19:51:54] [DEBUG] Attempting to send KEEPALIVE to server Instr_3 with socket 6
+[2024-10-28 19:51:54] [INFO] Sent KEEPALIVE to server Instr_3 with 0 messages.
+[2024-10-28 19:51:54] [DEBUG] Time since last KEEPALIVE for server Instr_1: 60.000000
+[2024-10-28 19:51:54] [DEBUG] Attempting to send KEEPALIVE to server Instr_1 with socket 7
+[2024-10-28 19:51:54] [INFO] Sent KEEPALIVE to server Instr_1 with 0 messages.
+[2024-10-28 19:51:54] [DEBUG] Time since last KEEPALIVE for server A5_9: 60.000000
+[2024-10-28 19:51:54] [DEBUG] Attempting to send KEEPALIVE to server A5_9 with socket 8
+[2024-10-28 19:51:54] [INFO] Sent KEEPALIVE to server A5_9 with 0 messages.
+[2024-10-28 19:51:54] [DEBUG] Time since last KEEPALIVE for server A5_42: 60.000000
+[2024-10-28 19:51:54] [DEBUG] Attempting to send KEEPALIVE to server A5_42 with socket 9
+[2024-10-28 19:51:54] [INFO] Sent KEEPALIVE to server A5_42 with 0 messages.
+[2024-10-28 19:52:09] [ERROR] Failed to connect to server: A5_390
+[2024-10-28 19:52:09] [INFO] Sent HELO to server at 130.208.246.249:4100
+[2024-10-28 19:52:09] [INFO] Connected to new server A5_100 at 130.208.246.249:4100
+[2024-10-28 19:52:09] [INFO] Sent HELO to server at 130.208.246.249:4179
+[2024-10-28 19:52:09] [INFO] Connected to new server A5_45 at 130.208.246.249:4179
+[2024-10-28 19:52:09] [INFO] Sent HELO to server at 130.208.246.249:4003
+[2024-10-28 19:52:09] [INFO] Connected to new server A5_3 at 130.208.246.249:4003
+[2024-10-28 19:52:09] [INFO] Sent HELO to server at 130.208.246.249:4070
+[2024-10-28 19:52:09] [INFO] Connected to new server A5_70 at 130.208.246.249:4070
+[2024-10-28 19:52:54] [INFO] Sending KEEPALIVE to all connected servers.
+[2024-10-28 19:52:54] [DEBUG] Number of connected servers: 9
+[2024-10-28 19:52:54] [DEBUG] Time since last KEEPALIVE for server Instr_2: 60.000000
+[2024-10-28 19:52:54] [DEBUG] Attempting to send KEEPALIVE to server Instr_2 with socket 5
+[2024-10-28 19:53:38] [INFO] Sent HELO to server at 130.208.246.249:5002
+[2024-10-28 19:53:38] [INFO] Received command: HELO,Instr_2
+[2024-10-28 19:53:38] [INFO] Sent SERVERS response: SERVERS,A5_18,157.97.14.186,4444;
+[2024-10-28 19:53:38] [INFO] Received command: SERVERS,Instr_2,130.208.246.249,5002;Instr_3,130.208.246.249,5003;Instr_1,130.208.246.249,5001;A5_9,130.208.246.249,4009;A5_42,130.208.246.249,4042;A5_390,157.157.85.56,-1;A5_100,130.208.246.249,4100;A5_45,130.208.246.249,4179;A5_3,130.208.246.249,4003;A5_18,157.97.14.186,-1;A5_69,130.208.246.249,4069;
+[2024-10-28 19:53:38] [INFO] Sent HELO to server at 130.208.246.249:5002
+[2024-10-28 19:53:38] [INFO] Connected to new server Instr_2 at 130.208.246.249:5002
+[2024-10-28 19:53:38] [INFO] Sent HELO to server at 130.208.246.249:5003
+[2024-10-28 19:53:38] [INFO] Connected to new server Instr_3 at 130.208.246.249:5003
+[2024-10-28 19:53:38] [INFO] Sent HELO to server at 130.208.246.249:5001
+[2024-10-28 19:53:38] [INFO] Connected to new server Instr_1 at 130.208.246.249:5001
+[2024-10-28 19:53:39] [INFO] Sent HELO to server at 130.208.246.249:4009
+[2024-10-28 19:53:39] [INFO] Connected to new server A5_9 at 130.208.246.249:4009
+[2024-10-28 19:53:39] [INFO] Sent HELO to server at 130.208.246.249:4042
+[2024-10-28 19:53:39] [INFO] Connected to new server A5_42 at 130.208.246.249:4042
+[2024-10-28 19:54:38] [INFO] Sending KEEPALIVE to all connected servers.
+[2024-10-28 19:54:38] [DEBUG] Number of connected servers: 5
+[2024-10-28 19:54:38] [DEBUG] Time since last KEEPALIVE for server Instr_2: 60.000000
+[2024-10-28 19:54:38] [DEBUG] Attempting to send KEEPALIVE to server Instr_2 with socket 5
+[2024-10-28 19:54:38] [INFO] Sent KEEPALIVE to server Instr_2 with 0 messages.
+[2024-10-28 19:54:38] [DEBUG] Time since last KEEPALIVE for server Instr_3: 60.000000
+[2024-10-28 19:54:38] [DEBUG] Attempting to send KEEPALIVE to server Instr_3 with socket 6
+[2024-10-28 19:54:38] [INFO] Sent KEEPALIVE to server Instr_3 with 0 messages.
+[2024-10-28 19:54:38] [DEBUG] Time since last KEEPALIVE for server Instr_1: 60.000000
+[2024-10-28 19:54:38] [DEBUG] Attempting to send KEEPALIVE to server Instr_1 with socket 7
+[2024-10-28 19:54:38] [INFO] Sent KEEPALIVE to server Instr_1 with 0 messages.
+[2024-10-28 19:54:38] [DEBUG] Time since last KEEPALIVE for server A5_9: 59.000000
+[2024-10-28 19:54:38] [DEBUG] Time since last KEEPALIVE for server A5_42: 59.000000
+[2024-10-28 19:54:54] [ERROR] Failed to connect to server: A5_390
+[2024-10-28 19:54:54] [INFO] Sent HELO to server at 130.208.246.249:4100
+[2024-10-28 19:54:54] [INFO] Connected to new server A5_100 at 130.208.246.249:4100
+[2024-10-28 19:54:54] [INFO] Sent HELO to server at 130.208.246.249:4179
+[2024-10-28 19:54:54] [INFO] Connected to new server A5_45 at 130.208.246.249:4179
+[2024-10-28 19:54:54] [INFO] Sent HELO to server at 130.208.246.249:4003
+[2024-10-28 19:54:54] [INFO] Connected to new server A5_3 at 130.208.246.249:4003
+[2024-10-28 19:54:54] [ERROR] Failed to connect to server: A5_18
+[2024-10-28 19:54:54] [INFO] Sent HELO to server at 130.208.246.249:4069
+[2024-10-28 19:54:54] [INFO] Connected to new server A5_69 at 130.208.246.249:4069
+[2024-10-28 19:54:54] [ERROR] Invalid server info format in SERVERS response: 
+[2024-10-28 19:54:54] [INFO] Processed SERVERS command.
+[2024-10-28 19:54:54] [INFO] New connection accepted from 127.0.0.1:63581
+[2024-10-28 19:54:54] [INFO] Received command: KEEPALIVE,0
+[2024-10-28 19:54:54] [ERROR] Sent ERROR response: ERROR: Unknown command received.
+[2024-10-28 19:54:54] [INFO] Received command: HELO,Instr_2
+[2024-10-28 20:13:11] [INFO] Sent HELO to server at 130.208.246.249:5002
+[2024-10-28 20:13:11] [INFO] Received command: HELO,Instr_2
+[2024-10-28 20:13:12] [INFO] Sent SERVERS response: SERVERS,A5_18,157.97.14.186,4444;
+[2024-10-28 20:13:12] [INFO] Received command: SERVERS,Instr_2,130.208.246.249,5002;A5_9,130.208.246.249,4009;Instr_1,130.208.246.249,5001;A5_53,130.208.246.249,4053;A5_42,130.208.246.249,4042;Instr_3,130.208.246.249,5003;A5_390,157.157.85.56,-1;A5_45,130.208.246.249,4179;A5_3,130.208.246.249,4003;A5_70,130.208.246.249,4070;?,85.220.16.224,-1;A5_18,157.97.14.186,-1;
+[2024-10-28 20:13:12] [INFO] Sent HELO to server at 130.208.246.249:5002
+[2024-10-28 20:13:12] [INFO] Connected to new server Instr_2 at 130.208.246.249:5002
+[2024-10-28 20:13:12] [INFO] Sent HELO to server at 130.208.246.249:4009
+[2024-10-28 20:13:12] [INFO] Connected to new server A5_9 at 130.208.246.249:4009
+[2024-10-28 20:13:12] [INFO] Sent HELO to server at 130.208.246.249:5001
+[2024-10-28 20:13:12] [INFO] Connected to new server Instr_1 at 130.208.246.249:5001
+[2024-10-28 20:13:12] [INFO] Sent HELO to server at 130.208.246.249:4053
+[2024-10-28 20:13:12] [INFO] Connected to new server A5_53 at 130.208.246.249:4053
+[2024-10-28 20:13:12] [INFO] Sent HELO to server at 130.208.246.249:4042
+[2024-10-28 20:13:12] [INFO] Connected to new server A5_42 at 130.208.246.249:4042
+[2024-10-28 20:13:12] [INFO] Sent HELO to server at 130.208.246.249:5003
+[2024-10-28 20:13:12] [INFO] Connected to new server Instr_3 at 130.208.246.249:5003
+[2024-10-28 20:14:11] [INFO] Sending KEEPALIVE to all connected servers.
+[2024-10-28 20:14:11] [DEBUG] Number of connected servers: 6
+[2024-10-28 20:14:11] [DEBUG] Time since last KEEPALIVE for server Instr_2: 59.000000
+[2024-10-28 20:14:11] [DEBUG] Time since last KEEPALIVE for server A5_9: 59.000000
+[2024-10-28 20:14:11] [DEBUG] Time since last KEEPALIVE for server Instr_1: 59.000000
+[2024-10-28 20:14:11] [DEBUG] Time since last KEEPALIVE for server A5_53: 59.000000
+[2024-10-28 20:14:11] [DEBUG] Time since last KEEPALIVE for server A5_42: 59.000000
+[2024-10-28 20:14:11] [DEBUG] Time since last KEEPALIVE for server Instr_3: 59.000000
+[2024-10-28 20:14:27] [ERROR] Failed to connect to server: A5_390
+[2024-10-28 20:14:27] [INFO] Sent HELO to server at 130.208.246.249:4179
+[2024-10-28 20:14:27] [INFO] Connected to new server A5_45 at 130.208.246.249:4179
+[2024-10-28 20:14:27] [INFO] Sent HELO to server at 130.208.246.249:4003
+[2024-10-28 20:14:27] [INFO] Connected to new server A5_3 at 130.208.246.249:4003
+[2024-10-28 20:14:27] [INFO] Sent HELO to server at 130.208.246.249:4070
+[2024-10-28 20:14:27] [INFO] Connected to new server A5_70 at 130.208.246.249:4070
+[2024-10-28 20:15:11] [INFO] Sending KEEPALIVE to all connected servers.
+[2024-10-28 20:15:11] [DEBUG] Number of connected servers: 9
+[2024-10-28 20:15:11] [DEBUG] Time since last KEEPALIVE for server Instr_2: 119.000000
+[2024-10-28 20:15:11] [DEBUG] Attempting to send KEEPALIVE to server Instr_2 with socket 5
+[2024-10-28 20:15:11] [INFO] Sent KEEPALIVE to server Instr_2 with 0 messages.
+[2024-10-28 20:15:11] [DEBUG] Time since last KEEPALIVE for server A5_9: 119.000000
+[2024-10-28 20:15:11] [DEBUG] Attempting to send KEEPALIVE to server A5_9 with socket 6
+[2024-10-28 20:15:11] [INFO] Sent KEEPALIVE to server A5_9 with 0 messages.
+[2024-10-28 20:15:11] [DEBUG] Time since last KEEPALIVE for server Instr_1: 119.000000
+[2024-10-28 20:15:11] [DEBUG] Attempting to send KEEPALIVE to server Instr_1 with socket 7
+[2024-10-28 20:15:11] [INFO] Sent KEEPALIVE to server Instr_1 with 0 messages.
+[2024-10-28 20:15:11] [DEBUG] Time since last KEEPALIVE for server A5_53: 119.000000
+[2024-10-28 20:15:11] [DEBUG] Attempting to send KEEPALIVE to server A5_53 with socket 8
+[2024-10-28 20:15:11] [INFO] Sent KEEPALIVE to server A5_53 with 0 messages.
+[2024-10-28 20:15:11] [DEBUG] Time since last KEEPALIVE for server A5_42: 119.000000
+[2024-10-28 20:15:11] [DEBUG] Attempting to send KEEPALIVE to server A5_42 with socket 9
+[2024-10-28 20:15:11] [INFO] Sent KEEPALIVE to server A5_42 with 0 messages.
+[2024-10-28 20:15:11] [DEBUG] Time since last KEEPALIVE for server Instr_3: 119.000000
+[2024-10-28 20:15:11] [DEBUG] Attempting to send KEEPALIVE to server Instr_3 with socket 10
+[2024-10-28 20:15:11] [INFO] Sent KEEPALIVE to server Instr_3 with 0 messages.
+[2024-10-28 20:15:11] [DEBUG] Time since last KEEPALIVE for server A5_45: 44.000000
+[2024-10-28 20:15:11] [DEBUG] Time since last KEEPALIVE for server A5_3: 44.000000
+[2024-10-28 20:15:11] [DEBUG] Time since last KEEPALIVE for server A5_70: 44.000000
+[2024-10-28 20:15:42] [ERROR] Failed to connect to server: ?
+[2024-10-28 20:15:42] [ERROR] Failed to connect to server: A5_18
+[2024-10-28 20:15:42] [ERROR] Invalid server info format in SERVERS response: 
+[2024-10-28 20:15:42] [INFO] Processed SERVERS command.
+[2024-10-28 20:15:42] [INFO] New connection accepted from 127.0.0.1:64021
+[2024-10-28 20:15:42] [INFO] Received command: KEEPALIVE,0KEEPALIVE,0
+[2024-10-28 20:15:42] [ERROR] Sent ERROR response: ERROR: Unknown command received.
+[2024-10-28 20:15:42] [INFO] Received command: HELO,Instr_2
+[2024-10-28 20:18:48] [INFO] Sent HELO to server at 130.208.246.249:5002
+[2024-10-28 20:18:48] [INFO] Received command: HELO,Instr_2
+[2024-10-28 20:18:49] [INFO] Sent SERVERS response: SERVERS,A5_18,157.97.14.186,4004;
+[2024-10-28 20:18:49] [INFO] Received command: SERVERS,Instr_2,130.208.246.249,5002;A5_69,130.208.246.249,4069;Instr_1,130.208.246.249,5001;A5_53,130.208.246.249,4053;A5_60,130.208.246.249,4060;Instr_3,130.208.246.249,5003;A5_390,157.157.85.56,-1;A5_45,130.208.246.249,4179;A5_3,130.208.246.249,4003;A5_70,130.208.246.249,4070;A5_9,130.208.246.249,4009;A5_18,157.97.14.186,-1;
+[2024-10-28 20:18:49] [INFO] Sent HELO to server at 130.208.246.249:5002
+[2024-10-28 20:18:49] [INFO] Connected to new server Instr_2 at 130.208.246.249:5002
+[2024-10-28 20:18:49] [INFO] Sent HELO to server at 130.208.246.249:4069
+[2024-10-28 20:18:49] [INFO] Connected to new server A5_69 at 130.208.246.249:4069
+[2024-10-28 20:18:49] [INFO] Sent HELO to server at 130.208.246.249:5001
+[2024-10-28 20:18:49] [INFO] Connected to new server Instr_1 at 130.208.246.249:5001
+[2024-10-28 20:18:49] [INFO] Sent HELO to server at 130.208.246.249:4053
+[2024-10-28 20:18:49] [INFO] Connected to new server A5_53 at 130.208.246.249:4053
+[2024-10-28 20:18:49] [INFO] Sent HELO to server at 130.208.246.249:4060
+[2024-10-28 20:18:49] [INFO] Connected to new server A5_60 at 130.208.246.249:4060
+[2024-10-28 20:18:49] [INFO] Sent HELO to server at 130.208.246.249:5003
+[2024-10-28 20:18:49] [INFO] Connected to new server Instr_3 at 130.208.246.249:5003
+[2024-10-28 20:19:48] [INFO] Sending KEEPALIVE to all connected servers.
+[2024-10-28 20:19:48] [DEBUG] Number of connected servers: 6
+[2024-10-28 20:19:48] [DEBUG] Time since last KEEPALIVE for server Instr_2: 59.000000
+[2024-10-28 20:19:48] [DEBUG] Time since last KEEPALIVE for server A5_69: 59.000000
+[2024-10-28 20:19:48] [DEBUG] Time since last KEEPALIVE for server Instr_1: 59.000000
+[2024-10-28 20:19:48] [DEBUG] Time since last KEEPALIVE for server A5_53: 59.000000
+[2024-10-28 20:19:48] [DEBUG] Time since last KEEPALIVE for server A5_60: 59.000000
+[2024-10-28 20:19:48] [DEBUG] Time since last KEEPALIVE for server Instr_3: 59.000000
+[2024-10-28 20:20:04] [ERROR] Failed to connect to server: A5_390
+[2024-10-28 20:20:04] [INFO] Sent HELO to server at 130.208.246.249:4179
+[2024-10-28 20:20:04] [INFO] Connected to new server A5_45 at 130.208.246.249:4179
+[2024-10-28 20:20:04] [INFO] Sent HELO to server at 130.208.246.249:4003
+[2024-10-28 20:20:04] [INFO] Connected to new server A5_3 at 130.208.246.249:4003
+[2024-10-28 20:20:04] [ERROR] Failed to connect to server: A5_70
+[2024-10-28 20:20:04] [INFO] Sent HELO to server at 130.208.246.249:4009
+[2024-10-28 20:20:04] [INFO] Connected to new server A5_9 at 130.208.246.249:4009
+[2024-10-28 20:20:04] [ERROR] Failed to connect to server: A5_18
+[2024-10-28 20:20:04] [ERROR] Invalid server info format in SERVERS response: 
+[2024-10-28 20:20:04] [INFO] Processed SERVERS command.
+[2024-10-28 20:20:04] [INFO] Received command: KEEPALIVE,0
+[2024-10-28 20:20:04] [ERROR] Sent ERROR response: ERROR: Unknown command received.
+[2024-10-28 20:20:04] [INFO] Received command: HELO,Instr_2
+[2024-10-28 20:20:05] [INFO] Sent SERVERS response: SERVERS,A5_18,157.97.14.186,4004;Instr_2,130.208.246.249,5002;A5_69,130.208.246.249,4069;Instr_1,130.208.246.249,5001;A5_53,130.208.246.249,4053;A5_60,130.208.246.249,4060;Instr_3,130.208.246.249,5003;A5_45,130.208.246.249,4179;A5_3,130.208.246.249,4003;A5_9,130.208.246.249,4009;
+[2024-10-28 20:20:05] [INFO] Received command: HELO,A5_69SERVERS,A5_69,130.208.246.249,4069;A5_60,130.208.246.249,4060;A5_3,130.208.246.249,4003;A5_9,130.208.246.249,4009;SERVERS,A5_69,130.208.246.249,4069;A5_60,130.208.246.249,4060;A5_3,130.208.246.249,4003;A5_9,130.208.246.249,4009;
+[2024-10-28 20:20:05] [INFO] Sent SERVERS response: SERVERS,A5_18,157.97.14.186,4004;Instr_2,130.208.246.249,5002;A5_69,130.208.246.249,4069;Instr_1,130.208.246.249,5001;A5_53,130.208.246.249,4053;A5_60,130.208.246.249,4060;Instr_3,130.208.246.249,5003;A5_45,130.208.246.249,4179;A5_3,130.208.246.249,4003;A5_9,130.208.246.249,4009;
+[2024-10-28 20:20:05] [INFO] Received command: HELO,Instr_1SERVERS,Instr_1,130.208.246.249,5001;A5_3,130.208.246.249,4003;A5_390,157.157.85.56,-1;A5_60,130.208.246.249,4060;A5_69,130.208.246.249,4069;Instr_2,130.208.246.249,5002;NUMBER,130.208.246.249,5005;A5_2,130.208.246.249,4002;A5_18,157.97.14.186,-1;A5_9,130.208.246.249,4009;A5_70,130.208.246.249,4070;KEEPALIVE,0
+[2024-10-28 20:20:05] [INFO] Sent SERVERS response: SERVERS,A5_18,157.97.14.186,4004;Instr_2,130.208.246.249,5002;A5_69,130.208.246.249,4069;Instr_1,130.208.246.249,5001;A5_53,130.208.246.249,4053;A5_60,130.208.246.249,4060;Instr_3,130.208.246.249,5003;A5_45,130.208.246.249,4179;A5_3,130.208.246.249,4003;A5_9,130.208.246.249,4009;
+[2024-10-28 20:20:05] [INFO] Received command: HELO,A5_53SERVERS,A5_53,130.208.246.249,4053;A5_18,157.97.14.186,-1;A5_28,130.208.246.249,4028;A5_3,130.208.246.249,4003;A5_45,130.208.246.249,4179;A5_60,130.208.246.249,4060;A5_9,130.208.246.249,4009;Instr_2,130.208.246.249,5002;SENDMSG,A5_18,A5_53,Aloha from A5_53. How are you?KEEPALIVE,0STATUSREQHELO,A5_53
+[2024-10-28 20:20:06] [INFO] Sent SERVERS response: SERVERS,A5_18,157.97.14.186,4004;Instr_2,130.208.246.249,5002;A5_69,130.208.246.249,4069;Instr_1,130.208.246.249,5001;A5_53,130.208.246.249,4053;A5_60,130.208.246.249,4060;Instr_3,130.208.246.249,5003;A5_45,130.208.246.249,4179;A5_3,130.208.246.249,4003;A5_9,130.208.246.249,4009;
+[2024-10-28 20:20:06] [INFO] Received command: HELO,A5_45SERVERS,A5_45,130.208.246.249,4179;Instr_2,130.208.246.249,5002;A5_3,130.208.246.249,0;A5_9,130.208.246.249,4009;A5_53,130.208.246.249,4053;A5_9,130.208.246.249,4009;A5_69,130.208.246.249,4069;A5_22,130.208.246.249,0;
+[2024-10-28 20:20:06] [INFO] Sent SERVERS response: SERVERS,A5_18,157.97.14.186,4004;Instr_2,130.208.246.249,5002;A5_69,130.208.246.249,4069;Instr_1,130.208.246.249,5001;A5_53,130.208.246.249,4053;A5_60,130.208.246.249,4060;Instr_3,130.208.246.249,5003;A5_45,130.208.246.249,4179;A5_3,130.208.246.249,4003;A5_9,130.208.246.249,4009;
+[2024-10-28 20:20:06] [INFO] Received command: HELO,A5_3
+[2024-10-28 20:20:06] [INFO] Sent SERVERS response: SERVERS,A5_18,157.97.14.186,4004;Instr_2,130.208.246.249,5002;A5_69,130.208.246.249,4069;Instr_1,130.208.246.249,5001;A5_53,130.208.246.249,4053;A5_60,130.208.246.249,4060;Instr_3,130.208.246.249,5003;A5_45,130.208.246.249,4179;A5_3,130.208.246.249,4003;A5_9,130.208.246.249,4009;
+[2024-10-28 20:20:06] [INFO] Received command: ERROR,Instr_2,A5_18,Unknown/unrecognised command
+[2024-10-28 20:20:06] [ERROR] Sent ERROR response: ERROR: Unknown command received.
+[2024-10-28 20:20:06] [INFO] Received command: HELO,Instr_3SERVERS,Instr_3,130.208.246.249,5003;ORACLE,130.208.246.249,5004;Instr_2,130.208.246.249,5002;A5_300,130.208.246.249,4300;A5_69,130.208.246.249,4069;?,130.208.240.12,-1;A5_390,157.157.85.56,-1;A5_60,130.208.246.249,4060;A5_3,130.208.246.249,4003;A5_9,130.208.246.249,4009;A5_70,130.208.246.249,4070;A5_18,157.97.14.186,-1;KEEPALIVE,0
+[2024-10-28 20:20:06] [INFO] Sent SERVERS response: SERVERS,A5_18,157.97.14.186,4004;Instr_2,130.208.246.249,5002;A5_69,130.208.246.249,4069;Instr_1,130.208.246.249,5001;A5_53,130.208.246.249,4053;A5_60,130.208.246.249,4060;Instr_3,130.208.246.249,5003;A5_45,130.208.246.249,4179;A5_3,130.208.246.249,4003;A5_9,130.208.246.249,4009;
+[2024-10-28 20:20:06] [INFO] Received command: ERROR,Instr_2,A5_18,Unknown/unrecognised command
+[2024-10-28 20:20:06] [ERROR] Sent ERROR response: ERROR: Unknown command received.
+[2024-10-28 20:20:06] [INFO] Received command: STATUSREQSENDMSG,A5_18,A5_69,Hello A5_18 . You've successfully connected to group A5_69! Meaning that you've sent both a valid HELO message and a SERVERS message. How are you?
+[2024-10-28 20:20:06] [ERROR] Sent ERROR response: ERROR: Unknown command received.
+[2024-10-28 20:20:06] [INFO] Received command: HELO,A5_9SERVERS,A5_9,130.208.246.249,4009;Instr_1,130.208.246.249,5001;A5_69,130.208.246.249,4069;Instr_2,130.208.246.249,5002;Instr_3,130.208.246.249,5003;A5_53,130.208.246.249,4053;A5_45,130.208.246.249,4179;
+[2024-10-28 20:20:07] [INFO] Sent SERVERS response: SERVERS,A5_18,157.97.14.186,4004;Instr_2,130.208.246.249,5002;A5_69,130.208.246.249,4069;Instr_1,130.208.246.249,5001;A5_53,130.208.246.249,4053;A5_60,130.208.246.249,4060;Instr_3,130.208.246.249,5003;A5_45,130.208.246.249,4179;A5_3,130.208.246.249,4003;A5_9,130.208.246.249,4009;
+[2024-10-28 20:20:07] [INFO] Received command: ERROR,Instr_2,A5_18,Unknown/unrecognised command
+[2024-10-28 20:20:07] [ERROR] Sent ERROR response: ERROR: Unknown command received.
+[2024-10-28 20:20:20] [INFO] Received command: KEEPALIVE,0
+[2024-10-28 20:20:20] [ERROR] Sent ERROR response: ERROR: Unknown command received.
+[2024-10-28 20:20:46] [INFO] Received command: SENDMSG,A5_18,A5_53,This is group 53 from AK. Send back For Bonus!
+[2024-10-28 20:20:46] [INFO] Message sent from A5_53 to A5_18: This is group 53 from AK. Send back For Bonus!
+[2024-10-28 20:20:48] [INFO] Sending KEEPALIVE to all connected servers.
+[2024-10-28 20:20:48] [DEBUG] Number of connected servers: 9
+[2024-10-28 20:20:48] [DEBUG] Time since last KEEPALIVE for server Instr_2: 119.000000
+[2024-10-28 20:20:48] [DEBUG] Attempting to send KEEPALIVE to server Instr_2 with socket 5
+[2024-10-28 20:20:48] [ERROR] send() failed for server Instr_2 with socket 5 errno: Bad file descriptor
+[2024-10-28 20:20:48] [DEBUG] Time since last KEEPALIVE for server A5_69: 119.000000
+[2024-10-28 20:20:48] [DEBUG] Attempting to send KEEPALIVE to server A5_69 with socket 6
+[2024-10-28 20:20:48] [INFO] Sent KEEPALIVE to server A5_69 with 0 messages.
+[2024-10-28 20:20:48] [DEBUG] Time since last KEEPALIVE for server Instr_1: 119.000000
+[2024-10-28 20:20:48] [DEBUG] Attempting to send KEEPALIVE to server Instr_1 with socket 7
+[2024-10-28 20:20:48] [INFO] Sent KEEPALIVE to server Instr_1 with 0 messages.
+[2024-10-28 20:20:48] [DEBUG] Time since last KEEPALIVE for server A5_53: 119.000000
+[2024-10-28 20:20:48] [DEBUG] Attempting to send KEEPALIVE to server A5_53 with socket 8
+[2024-10-28 20:20:48] [INFO] Sent KEEPALIVE to server A5_53 with 0 messages.
+[2024-10-28 20:20:48] [DEBUG] Time since last KEEPALIVE for server A5_60: 119.000000
+[2024-10-28 20:20:48] [DEBUG] Attempting to send KEEPALIVE to server A5_60 with socket 9
+[2024-10-28 20:20:48] [ERROR] send() failed for server A5_60 with socket 9 errno: Bad file descriptor
+[2024-10-28 20:20:48] [DEBUG] Time since last KEEPALIVE for server Instr_3: 119.000000
+[2024-10-28 20:20:48] [DEBUG] Attempting to send KEEPALIVE to server Instr_3 with socket 10
+[2024-10-28 20:20:48] [INFO] Sent KEEPALIVE to server Instr_3 with 0 messages.
+[2024-10-28 20:20:48] [DEBUG] Time since last KEEPALIVE for server A5_45: 44.000000
+[2024-10-28 20:20:48] [DEBUG] Time since last KEEPALIVE for server A5_3: 44.000000
+[2024-10-28 20:20:48] [DEBUG] Time since last KEEPALIVE for server A5_9: 44.000000
+[2024-10-28 20:20:48] [INFO] Received command: KEEPALIVE,0
+[2024-10-28 20:20:48] [ERROR] Sent ERROR response: ERROR: Unknown command received.
+[2024-10-28 20:20:48] [INFO] Received command: KEEPALIVE,0
+[2024-10-28 20:20:48] [ERROR] Sent ERROR response: ERROR: Unknown command received.
+[2024-10-28 20:20:48] [INFO] Received command: ERROR,Instr_1,A5_18,Unknown/unrecognised command
+[2024-10-28 20:20:48] [ERROR] Sent ERROR response: ERROR: Unknown command received.
+[2024-10-28 20:20:48] [INFO] Received command: ERROR,Instr_3,A5_18,Unknown/unrecognised command
+[2024-10-28 20:20:48] [ERROR] Sent ERROR response: ERROR: Unknown command received.
+[2024-10-28 20:20:48] [INFO] Received command: ERROR,Instr_1,A5_18,Unknown/unrecognised command
+[2024-10-28 20:20:48] [ERROR] Sent ERROR response: ERROR: Unknown command received.
+[2024-10-28 20:20:48] [INFO] Received command: ERROR,Instr_3,A5_18,Unknown/unrecognised command
+[2024-10-28 20:20:48] [ERROR] Sent ERROR response: ERROR: Unknown command received.
+[2024-10-28 20:20:48] [INFO] Received command: ERROR,Instr_1,A5_18,Unknown/unrecognised command
+[2024-10-28 20:20:48] [ERROR] Sent ERROR response: ERROR: Unknown command received.
+[2024-10-28 20:20:48] [INFO] Received command: ERROR,Instr_3,A5_18,Unknown/unrecognised command
+[2024-10-28 20:20:48] [ERROR] Sent ERROR response: ERROR: Unknown command received.
+[2024-10-28 20:20:54] [INFO] Received command: KEEPALIVE,0
+[2024-10-28 20:20:54] [ERROR] Sent ERROR response: ERROR: Unknown command received.
+[2024-10-28 20:20:54] [INFO] Received command: KEEPALIVE,0
+[2024-10-28 20:20:54] [ERROR] Sent ERROR response: ERROR: Unknown command received.
+[2024-10-28 20:20:54] [INFO] Received command: STATUSREQHELO,A5_53
+[2024-10-28 20:20:54] [ERROR] Sent ERROR response: ERROR: Unknown command received.
+[2024-10-28 20:21:20] [INFO] Received command: KEEPALIVE,0
+[2024-10-28 20:21:20] [ERROR] Sent ERROR response: ERROR: Unknown command received.
+[2024-10-28 20:21:48] [INFO] Sending KEEPALIVE to all connected servers.
+[2024-10-28 20:21:48] [DEBUG] Number of connected servers: 9
+[2024-10-28 20:21:48] [DEBUG] Time since last KEEPALIVE for server Instr_2: 179.000000
+[2024-10-28 20:21:48] [WARNING] Server Instr_2 has been inactive for too long. Closing connection.
+[2024-10-28 20:21:48] [DEBUG] Time since last KEEPALIVE for server A5_69: 60.000000
+[2024-10-28 20:21:48] [DEBUG] Attempting to send KEEPALIVE to server A5_69 with socket 6
+[2024-10-28 20:21:48] [INFO] Sent KEEPALIVE to server A5_69 with 0 messages.
+[2024-10-28 20:21:48] [DEBUG] Time since last KEEPALIVE for server Instr_1: 60.000000
+[2024-10-28 20:21:48] [DEBUG] Attempting to send KEEPALIVE to server Instr_1 with socket 7
+[2024-10-28 20:21:48] [ERROR] send() failed for server Instr_1 with socket 7 errno: Bad file descriptor
+[2024-10-28 20:21:48] [DEBUG] Time since last KEEPALIVE for server A5_53: 60.000000
+[2024-10-28 20:21:48] [DEBUG] Attempting to send KEEPALIVE to server A5_53 with socket 8
+[2024-10-28 20:21:48] [INFO] Sent KEEPALIVE to server A5_53 with 0 messages.
+[2024-10-28 20:21:48] [DEBUG] Time since last KEEPALIVE for server A5_60: 179.000000
+[2024-10-28 20:21:48] [WARNING] Server A5_60 has been inactive for too long. Closing connection.
+[2024-10-28 20:21:48] [DEBUG] Time since last KEEPALIVE for server Instr_3: 60.000000
+[2024-10-28 20:21:48] [DEBUG] Attempting to send KEEPALIVE to server Instr_3 with socket 10
+[2024-10-28 20:21:48] [ERROR] send() failed for server Instr_3 with socket 10 errno: Bad file descriptor
+[2024-10-28 20:21:48] [DEBUG] Time since last KEEPALIVE for server A5_45: 104.000000
+[2024-10-28 20:21:48] [DEBUG] Attempting to send KEEPALIVE to server A5_45 with socket 11
+[2024-10-28 20:21:48] [INFO] Sent KEEPALIVE to server A5_45 with 0 messages.
+[2024-10-28 20:21:48] [DEBUG] Time since last KEEPALIVE for server A5_3: 104.000000
+[2024-10-28 20:21:48] [DEBUG] Attempting to send KEEPALIVE to server A5_3 with socket 12
+[2024-10-28 20:21:48] [ERROR] send() failed for server A5_3 with socket 12 errno: Bad file descriptor
+[2024-10-28 20:21:48] [DEBUG] Time since last KEEPALIVE for server A5_9: 104.000000
+[2024-10-28 20:21:48] [DEBUG] Attempting to send KEEPALIVE to server A5_9 with socket 13
+[2024-10-28 20:21:48] [INFO] Sent KEEPALIVE to server A5_9 with 0 messages.
+[2024-10-28 20:22:04] [INFO] Received command: KEEPALIVE,0
+[2024-10-28 20:22:04] [ERROR] Sent ERROR response: ERROR: Unknown command received.
+[2024-10-28 20:22:04] [INFO] Received command: KEEPALIVE,0
+[2024-10-28 20:22:04] [ERROR] Sent ERROR response: ERROR: Unknown command received.
+[2024-10-28 20:22:04] [INFO] Received command: STATUSREQHELO,A5_53
+[2024-10-28 20:22:04] [ERROR] Sent ERROR response: ERROR: Unknown command received.
+[2024-10-28 20:22:20] [INFO] Received command: STATUSREQ
+[2024-10-28 20:22:20] [ERROR] Sent ERROR response: ERROR: Unknown command received.
+[2024-10-28 20:22:20] [INFO] Received command: KEEPALIVE,0
+[2024-10-28 20:22:20] [ERROR] Sent ERROR response: ERROR: Unknown command received.
+[2024-10-28 20:22:48] [INFO] Sending KEEPALIVE to all connected servers.
+[2024-10-28 20:22:48] [DEBUG] Number of connected servers: 7
+[2024-10-28 20:22:48] [DEBUG] Time since last KEEPALIVE for server A5_69: 60.000000
+[2024-10-28 20:22:48] [DEBUG] Attempting to send KEEPALIVE to server A5_69 with socket 6
+[2024-10-28 20:22:48] [INFO] Sent KEEPALIVE to server A5_69 with 0 messages.
+[2024-10-28 20:22:48] [DEBUG] Time since last KEEPALIVE for server Instr_1: 120.000000
+[2024-10-28 20:22:48] [DEBUG] Attempting to send KEEPALIVE to server Instr_1 with socket 7
+[2024-10-28 20:22:48] [ERROR] send() failed for server Instr_1 with socket 7 errno: Bad file descriptor
+[2024-10-28 20:22:48] [DEBUG] Time since last KEEPALIVE for server A5_53: 60.000000
+[2024-10-28 20:22:48] [DEBUG] Attempting to send KEEPALIVE to server A5_53 with socket 8
+[2024-10-28 20:22:48] [INFO] Sent KEEPALIVE to server A5_53 with 0 messages.
+[2024-10-28 20:22:48] [DEBUG] Time since last KEEPALIVE for server Instr_3: 120.000000
+[2024-10-28 20:22:48] [DEBUG] Attempting to send KEEPALIVE to server Instr_3 with socket 10
+[2024-10-28 20:22:48] [ERROR] send() failed for server Instr_3 with socket 10 errno: Bad file descriptor
+[2024-10-28 20:22:48] [DEBUG] Time since last KEEPALIVE for server A5_45: 60.000000
+[2024-10-28 20:22:48] [DEBUG] Attempting to send KEEPALIVE to server A5_45 with socket 11
+[2024-10-28 20:22:48] [INFO] Sent KEEPALIVE to server A5_45 with 0 messages.
+[2024-10-28 20:22:48] [DEBUG] Time since last KEEPALIVE for server A5_3: 164.000000
+[2024-10-28 20:22:48] [WARNING] Server A5_3 has been inactive for too long. Closing connection.
+[2024-10-28 20:22:48] [DEBUG] Time since last KEEPALIVE for server A5_9: 60.000000
+[2024-10-28 20:22:48] [DEBUG] Attempting to send KEEPALIVE to server A5_9 with socket 13
+[2024-10-28 20:22:48] [INFO] Sent KEEPALIVE to server A5_9 with 0 messages.
+[2024-10-28 20:23:14] [INFO] Received command: KEEPALIVE,0
+[2024-10-28 20:23:14] [ERROR] Sent ERROR response: ERROR: Unknown command received.
+[2024-10-28 20:23:14] [INFO] Received command: KEEPALIVE,0
+[2024-10-28 20:23:14] [ERROR] Sent ERROR response: ERROR: Unknown command received.
+[2024-10-28 20:23:14] [INFO] Received command: STATUSREQHELO,A5_53
+[2024-10-28 20:23:14] [ERROR] Sent ERROR response: ERROR: Unknown command received.
+[2024-10-28 20:23:20] [INFO] Received command: KEEPALIVE,0
+[2024-10-28 20:23:20] [ERROR] Sent ERROR response: ERROR: Unknown command received.
+[2024-10-28 20:23:48] [INFO] Sending KEEPALIVE to all connected servers.
+[2024-10-28 20:23:48] [DEBUG] Number of connected servers: 6
+[2024-10-28 20:23:48] [DEBUG] Time since last KEEPALIVE for server A5_69: 60.000000
+[2024-10-28 20:23:48] [DEBUG] Attempting to send KEEPALIVE to server A5_69 with socket 6
+[2024-10-28 20:23:48] [INFO] Sent KEEPALIVE to server A5_69 with 0 messages.
+[2024-10-28 20:23:48] [DEBUG] Time since last KEEPALIVE for server Instr_1: 180.000000
+[2024-10-28 20:23:48] [WARNING] Server Instr_1 has been inactive for too long. Closing connection.
+[2024-10-28 20:23:48] [DEBUG] Time since last KEEPALIVE for server A5_53: 60.000000
+[2024-10-28 20:23:48] [DEBUG] Attempting to send KEEPALIVE to server A5_53 with socket 8
+[2024-10-28 20:23:48] [INFO] Sent KEEPALIVE to server A5_53 with 0 messages.
+[2024-10-28 20:23:48] [DEBUG] Time since last KEEPALIVE for server Instr_3: 180.000000
+[2024-10-28 20:23:48] [WARNING] Server Instr_3 has been inactive for too long. Closing connection.
+[2024-10-28 20:23:48] [DEBUG] Time since last KEEPALIVE for server A5_45: 60.000000
+[2024-10-28 20:23:48] [DEBUG] Attempting to send KEEPALIVE to server A5_45 with socket 11
+[2024-10-28 20:23:48] [INFO] Sent KEEPALIVE to server A5_45 with 0 messages.
+[2024-10-28 20:23:48] [DEBUG] Time since last KEEPALIVE for server A5_9: 60.000000
+[2024-10-28 20:23:48] [DEBUG] Attempting to send KEEPALIVE to server A5_9 with socket 13
+[2024-10-28 20:23:48] [ERROR] send() failed for server A5_9 with socket 13 errno: Bad file descriptor
+[2024-10-28 20:24:20] [INFO] Received command: KEEPALIVE,0
+[2024-10-28 20:24:20] [ERROR] Sent ERROR response: ERROR: Unknown command received.
+[2024-10-28 20:24:24] [INFO] Received command: KEEPALIVE,0
+[2024-10-28 20:24:24] [ERROR] Sent ERROR response: ERROR: Unknown command received.
+[2024-10-28 20:24:24] [INFO] Received command: STATUSREQHELO,A5_53
+[2024-10-28 20:24:24] [ERROR] Sent ERROR response: ERROR: Unknown command received.
+[2024-10-28 20:24:48] [INFO] Sending KEEPALIVE to all connected servers.
+[2024-10-28 20:24:48] [DEBUG] Number of connected servers: 4
+[2024-10-28 20:24:48] [DEBUG] Time since last KEEPALIVE for server A5_69: 60.000000
+[2024-10-28 20:24:48] [DEBUG] Attempting to send KEEPALIVE to server A5_69 with socket 6
+[2024-10-28 20:24:48] [INFO] Sent KEEPALIVE to server A5_69 with 0 messages.
+[2024-10-28 20:24:48] [DEBUG] Time since last KEEPALIVE for server A5_53: 60.000000
+[2024-10-28 20:24:48] [DEBUG] Attempting to send KEEPALIVE to server A5_53 with socket 8
+[2024-10-28 20:24:48] [INFO] Sent KEEPALIVE to server A5_53 with 0 messages.
+[2024-10-28 20:24:48] [DEBUG] Time since last KEEPALIVE for server A5_45: 60.000000
+[2024-10-28 20:24:48] [DEBUG] Attempting to send KEEPALIVE to server A5_45 with socket 11
+[2024-10-28 20:24:48] [INFO] Sent KEEPALIVE to server A5_45 with 0 messages.
+[2024-10-28 20:24:48] [DEBUG] Time since last KEEPALIVE for server A5_9: 120.000000
+[2024-10-28 20:24:48] [DEBUG] Attempting to send KEEPALIVE to server A5_9 with socket 13
+[2024-10-28 20:24:48] [ERROR] send() failed for server A5_9 with socket 13 errno: Bad file descriptor
+[2024-10-28 20:24:48] [INFO] Received command: STATUSREQ
+[2024-10-28 20:24:48] [ERROR] Sent ERROR response: ERROR: Unknown command received.
+[2024-10-28 20:24:48] [INFO] Received command: HELO,A5_69
+[2024-10-28 20:24:49] [INFO] Sent SERVERS response: SERVERS,A5_18,157.97.14.186,4004;A5_69,130.208.246.249,4069;A5_53,130.208.246.249,4053;A5_45,130.208.246.249,4179;A5_9,130.208.246.249,4009;
+[2024-10-28 20:25:34] [INFO] Received command: KEEPALIVE,0
+[2024-10-28 20:25:34] [ERROR] Sent ERROR response: ERROR: Unknown command received.
+[2024-10-28 20:25:34] [INFO] Received command: STATUSREQHELO,A5_53
+[2024-10-28 20:25:34] [ERROR] Sent ERROR response: ERROR: Unknown command received.
+[2024-10-28 20:25:48] [INFO] Sending KEEPALIVE to all connected servers.
+[2024-10-28 20:25:48] [DEBUG] Number of connected servers: 4
+[2024-10-28 20:25:48] [DEBUG] Time since last KEEPALIVE for server A5_69: 60.000000
+[2024-10-28 20:25:48] [DEBUG] Attempting to send KEEPALIVE to server A5_69 with socket 6
+[2024-10-28 20:25:48] [INFO] Sent KEEPALIVE to server A5_69 with 0 messages.
+[2024-10-28 20:25:48] [DEBUG] Time since last KEEPALIVE for server A5_53: 60.000000
+[2024-10-28 20:25:48] [DEBUG] Attempting to send KEEPALIVE to server A5_53 with socket 8
+[2024-10-28 20:25:48] [INFO] Sent KEEPALIVE to server A5_53 with 0 messages.
+[2024-10-28 20:25:48] [DEBUG] Time since last KEEPALIVE for server A5_45: 60.000000
+[2024-10-28 20:25:48] [DEBUG] Attempting to send KEEPALIVE to server A5_45 with socket 11
+[2024-10-28 20:25:48] [ERROR] send() failed for server A5_45 with socket 11 errno: Bad file descriptor
+[2024-10-28 20:25:48] [DEBUG] Time since last KEEPALIVE for server A5_9: 180.000000
+[2024-10-28 20:25:48] [WARNING] Server A5_9 has been inactive for too long. Closing connection.
+[2024-10-28 20:26:44] [INFO] Received command: KEEPALIVE,0
+[2024-10-28 20:26:44] [ERROR] Sent ERROR response: ERROR: Unknown command received.
+[2024-10-28 20:26:44] [INFO] Received command: STATUSREQHELO,A5_53
+[2024-10-28 20:26:44] [ERROR] Sent ERROR response: ERROR: Unknown command received.
+[2024-10-28 20:26:48] [INFO] Sending KEEPALIVE to all connected servers.
+[2024-10-28 20:26:48] [DEBUG] Number of connected servers: 3
+[2024-10-28 20:26:48] [DEBUG] Time since last KEEPALIVE for server A5_69: 60.000000
+[2024-10-28 20:26:48] [DEBUG] Attempting to send KEEPALIVE to server A5_69 with socket 6
+[2024-10-28 20:26:48] [INFO] Sent KEEPALIVE to server A5_69 with 0 messages.
+[2024-10-28 20:26:48] [DEBUG] Time since last KEEPALIVE for server A5_53: 60.000000
+[2024-10-28 20:26:48] [DEBUG] Attempting to send KEEPALIVE to server A5_53 with socket 8
+[2024-10-28 20:26:48] [INFO] Sent KEEPALIVE to server A5_53 with 0 messages.
+[2024-10-28 20:26:48] [DEBUG] Time since last KEEPALIVE for server A5_45: 120.000000
+[2024-10-28 20:26:48] [DEBUG] Attempting to send KEEPALIVE to server A5_45 with socket 11
+[2024-10-28 20:26:48] [ERROR] send() failed for server A5_45 with socket 11 errno: Bad file descriptor
+[2024-10-28 20:27:48] [INFO] Sending KEEPALIVE to all connected servers.
+[2024-10-28 20:27:48] [DEBUG] Number of connected servers: 3
+[2024-10-28 20:27:48] [DEBUG] Time since last KEEPALIVE for server A5_69: 60.000000
+[2024-10-28 20:27:48] [DEBUG] Attempting to send KEEPALIVE to server A5_69 with socket 6
+[2024-10-28 20:27:48] [INFO] Sent KEEPALIVE to server A5_69 with 0 messages.
+[2024-10-28 20:27:48] [DEBUG] Time since last KEEPALIVE for server A5_53: 60.000000
+[2024-10-28 20:27:48] [DEBUG] Attempting to send KEEPALIVE to server A5_53 with socket 8
+[2024-10-28 20:27:48] [INFO] Sent KEEPALIVE to server A5_53 with 0 messages.
+[2024-10-28 20:27:48] [DEBUG] Time since last KEEPALIVE for server A5_45: 180.000000
+[2024-10-28 20:27:48] [WARNING] Server A5_45 has been inactive for too long. Closing connection.
+[2024-10-28 20:27:54] [INFO] Received command: KEEPALIVE,0
+[2024-10-28 20:27:54] [ERROR] Sent ERROR response: ERROR: Unknown command received.
+[2024-10-28 20:27:54] [INFO] Received command: STATUSREQHELO,A5_53
+[2024-10-28 20:27:54] [ERROR] Sent ERROR response: ERROR: Unknown command received.
+[2024-10-28 20:28:48] [INFO] Sending KEEPALIVE to all connected servers.
+[2024-10-28 20:28:48] [DEBUG] Number of connected servers: 2
+[2024-10-28 20:28:48] [DEBUG] Time since last KEEPALIVE for server A5_69: 60.000000
+[2024-10-28 20:28:48] [DEBUG] Attempting to send KEEPALIVE to server A5_69 with socket 6
+[2024-10-28 20:28:48] [INFO] Sent KEEPALIVE to server A5_69 with 0 messages.
+[2024-10-28 20:28:48] [DEBUG] Time since last KEEPALIVE for server A5_53: 60.000000
+[2024-10-28 20:28:48] [DEBUG] Attempting to send KEEPALIVE to server A5_53 with socket 8
+[2024-10-28 20:28:48] [INFO] Sent KEEPALIVE to server A5_53 with 0 messages.
+[2024-10-28 20:29:04] [INFO] Received command: KEEPALIVE,0
+[2024-10-28 20:29:04] [ERROR] Sent ERROR response: ERROR: Unknown command received.
+[2024-10-28 20:29:04] [INFO] Received command: STATUSREQHELO,A5_53
+[2024-10-28 20:29:04] [ERROR] Sent ERROR response: ERROR: Unknown command received.
+[2024-10-28 20:29:48] [INFO] Sending KEEPALIVE to all connected servers.
+[2024-10-28 20:29:48] [DEBUG] Number of connected servers: 2
+[2024-10-28 20:29:48] [DEBUG] Time since last KEEPALIVE for server A5_69: 60.000000
+[2024-10-28 20:29:48] [DEBUG] Attempting to send KEEPALIVE to server A5_69 with socket 6
+[2024-10-28 20:29:48] [INFO] Sent KEEPALIVE to server A5_69 with 0 messages.
+[2024-10-28 20:29:48] [DEBUG] Time since last KEEPALIVE for server A5_53: 60.000000
+[2024-10-28 20:29:48] [DEBUG] Attempting to send KEEPALIVE to server A5_53 with socket 8
+[2024-10-28 20:29:48] [INFO] Sent KEEPALIVE to server A5_53 with 0 messages.
+[2024-10-28 20:29:48] [INFO] Received command: STATUSREQ
+[2024-10-28 20:29:48] [ERROR] Sent ERROR response: ERROR: Unknown command received.
+[2024-10-28 20:29:48] [INFO] Received command: HELO,A5_69
+[2024-10-28 20:29:49] [INFO] Sent SERVERS response: SERVERS,A5_18,157.97.14.186,4004;A5_69,130.208.246.249,4069;A5_53,130.208.246.249,4053;
+[2024-10-28 20:30:14] [INFO] Received command: KEEPALIVE,0
+[2024-10-28 20:30:14] [ERROR] Sent ERROR response: ERROR: Unknown command received.
+[2024-10-28 20:30:14] [INFO] Received command: STATUSREQHELO,A5_53
+[2024-10-28 20:30:14] [ERROR] Sent ERROR response: ERROR: Unknown command received.
+[2024-10-28 20:30:48] [INFO] Sending KEEPALIVE to all connected servers.
+[2024-10-28 20:30:48] [DEBUG] Number of connected servers: 2
+[2024-10-28 20:30:48] [DEBUG] Time since last KEEPALIVE for server A5_69: 60.000000
+[2024-10-28 20:30:48] [DEBUG] Attempting to send KEEPALIVE to server A5_69 with socket 6
+[2024-10-28 20:30:48] [INFO] Sent KEEPALIVE to server A5_69 with 0 messages.
+[2024-10-28 20:30:48] [DEBUG] Time since last KEEPALIVE for server A5_53: 60.000000
+[2024-10-28 20:30:48] [DEBUG] Attempting to send KEEPALIVE to server A5_53 with socket 8
+[2024-10-28 20:30:48] [INFO] Sent KEEPALIVE to server A5_53 with 0 messages.
+[2024-10-28 20:31:09] [INFO] Received command: SENDMSG,A5_18,A5_53,Keep trying dudes. We in AK, send for bonus
+[2024-10-28 20:31:09] [INFO] Message sent from A5_53 to A5_18: Keep trying dudes. We in AK, send for bonus
+[2024-10-28 20:31:24] [INFO] Received command: KEEPALIVE,0
+[2024-10-28 20:31:24] [ERROR] Sent ERROR response: ERROR: Unknown command received.
+[2024-10-28 20:31:24] [INFO] Received command: STATUSREQHELO,A5_53
+[2024-10-28 20:31:24] [ERROR] Sent ERROR response: ERROR: Unknown command received.
+[2024-10-28 20:31:48] [INFO] Sending KEEPALIVE to all connected servers.
+[2024-10-28 20:31:48] [DEBUG] Number of connected servers: 2
+[2024-10-28 20:31:48] [DEBUG] Time since last KEEPALIVE for server A5_69: 60.000000
+[2024-10-28 20:31:48] [DEBUG] Attempting to send KEEPALIVE to server A5_69 with socket 6
+[2024-10-28 20:31:48] [INFO] Sent KEEPALIVE to server A5_69 with 0 messages.
+[2024-10-28 20:31:48] [DEBUG] Time since last KEEPALIVE for server A5_53: 60.000000
+[2024-10-28 20:31:48] [DEBUG] Attempting to send KEEPALIVE to server A5_53 with socket 8
+[2024-10-28 20:31:48] [INFO] Sent KEEPALIVE to server A5_53 with 0 messages.
+[2024-10-28 20:32:34] [INFO] Received command: KEEPALIVE,0
+[2024-10-28 20:32:34] [ERROR] Sent ERROR response: ERROR: Unknown command received.
+[2024-10-28 20:32:34] [INFO] Received command: STATUSREQHELO,A5_53
+[2024-10-28 20:32:34] [ERROR] Sent ERROR response: ERROR: Unknown command received.
+[2024-10-28 20:32:48] [INFO] Sending KEEPALIVE to all connected servers.
+[2024-10-28 20:32:48] [DEBUG] Number of connected servers: 2
+[2024-10-28 20:32:48] [DEBUG] Time since last KEEPALIVE for server A5_69: 60.000000
+[2024-10-28 20:32:48] [DEBUG] Attempting to send KEEPALIVE to server A5_69 with socket 6
+[2024-10-28 20:32:48] [INFO] Sent KEEPALIVE to server A5_69 with 0 messages.
+[2024-10-28 20:32:48] [DEBUG] Time since last KEEPALIVE for server A5_53: 60.000000
+[2024-10-28 20:32:48] [DEBUG] Attempting to send KEEPALIVE to server A5_53 with socket 8
+[2024-10-28 20:32:48] [INFO] Sent KEEPALIVE to server A5_53 with 0 messages.
